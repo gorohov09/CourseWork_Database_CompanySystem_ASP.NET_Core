@@ -2,7 +2,7 @@
 using Company.Application.DTO;
 using Company.Application.ViewModel;
 
-namespace Company.Integration.AutoMapper
+namespace Company.WebAPI.Helpers.AutoMapper
 {
     public class MappingProfiles : Profile
     {
