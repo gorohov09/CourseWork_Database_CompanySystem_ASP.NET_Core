@@ -41,9 +41,9 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>
+        <tr class="trEmployee" style="cursor: pointer;" onclick="window.location.href='/Employees/Details'; return false">
             <td>
-                <a asp-controller="Employees" asp-action="Details">@Html.DisplayFor(modelItem => item.Id)</a>
+                @Html.DisplayFor(modelItem => item.Id)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.LastName)
