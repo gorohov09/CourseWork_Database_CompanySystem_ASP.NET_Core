@@ -22,7 +22,7 @@ namespace Company.Application.Services
                 LastName = x.LastName,
                 FirstName = x.FirstName,
                 Patronymic = x.Patronymic,
-                Birthday = x.Birthday,
+                Birthday = x.Birthday.ToShortDateString(),
                 Email = x.Email,
                 PhoneNumber = x.PhoneNumber,
                 Salary = x.Salary,

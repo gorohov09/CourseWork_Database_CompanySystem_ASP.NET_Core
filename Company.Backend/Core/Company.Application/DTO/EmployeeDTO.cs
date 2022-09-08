@@ -16,7 +16,7 @@ namespace Company.Application.DTO
 
         public string? Patronymic { get; set; }
 
-        public DateTime Birthday { get; set; }
+        public string Birthday { get; set; }
 
         public long PhoneNumber { get; set; }
 
