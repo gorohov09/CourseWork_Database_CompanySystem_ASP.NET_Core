@@ -1,6 +1,17 @@
+using Company.Clients.Employees;
+using Company.Clients.Interfaces;
+
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllersWithViews();
+var services = builder.Services;
+var configuration = builder.Configuration;
+
+services.AddControllersWithViews();
+
+//Clients
+services.AddHttpClient("Company.WebAPI", client => client.BaseAddress = new(configuration["WebAPI"]))
+    .AddTypedClient<IEmployeesClient, EmployeesClient>();
+
 
 var app = builder.Build();
 
