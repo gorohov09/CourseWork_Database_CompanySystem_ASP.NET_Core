@@ -1,5 +1,6 @@
 using Company.Application.Interfaces;
 using Company.Application.Services;
+using Company.DAL;
 using Company.DAL.Context;
 using Company.DAL.Interfaces;
 using Company.DAL.Repositories;
@@ -23,11 +24,20 @@ services.AddDbContext<CompanyContext>(options =>
 
 //Services
 services.AddScoped<IEmployeesService, EmployeesService>();
+services.AddTransient<IDbInitializer, DbInitializer>();
 
 //Repository
 services.AddScoped<IEmployeesRepository, EmployeesRepository>();
+services.AddScoped<IProjectRepository, ProjectRepository>();
 
 var app = builder.Build();
+
+//Initialize Data
+await using (var scope = app.Services.CreateAsyncScope())
+{
+    var db_initializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
+    await db_initializer.InitializeAsync(true);
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

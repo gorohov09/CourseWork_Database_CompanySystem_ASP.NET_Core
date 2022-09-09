@@ -9,6 +9,8 @@ namespace Company.WebAPI.Helpers.AutoMapper
         public MappingProfiles()
         {
             CreateMap<EmployeeVm, EmployeeDTO>().ReverseMap();
+            CreateMap<EmployeeDetailsVm, EmployeeDetailsDTO>().ReverseMap();
+            CreateMap<ProjectVm, ProjectDTO>().ReverseMap();
         }
     }
 }
