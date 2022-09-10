@@ -30,5 +30,11 @@ namespace Company.DAL.Repositories
 
             return countProjects;
         }
+
+        public async Task<IEnumerable<ProjectEntity>> GetAllProjects()
+        {
+            var projectsEntityes = await _context.Projects.ToListAsync();
+            return projectsEntityes;
+        }
     }
 }

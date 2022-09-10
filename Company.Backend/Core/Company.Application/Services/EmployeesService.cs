@@ -41,7 +41,7 @@ namespace Company.Application.Services
                     Id = p.Id,
                     Title = p.Title,
                     Description = p.Description,
-                    Status = GetStatusFromProject(p.Status)
+                    Status = p.GetStatusFromProject()
                 }).ToList(),
             };
             
@@ -73,18 +73,6 @@ namespace Company.Application.Services
             if (DateTime.Now.DayOfYear < date.DayOfYear) //на случай, если день рождения уже прошёл
                 age++;
             return age;
-        }
-
-        private string GetStatusFromProject(Status status)
-        {
-            if (status == Status.OPEN)
-                return "ОТКРЫТО";
-            else if (status == Status.IN_PROGRESS)
-                return "В ПРОГРЕССЕ";
-            else if (status == Status.CLOSED)
-                return "ЗАКРЫТО";
-            else
-                return "НЕИЗВЕСТНЫЙ СТАТУС";
         }
     }
 }
