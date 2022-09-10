@@ -11,10 +11,18 @@ namespace Company.Clients.Employees
         {
         }
 
+        public async Task<EmployeeDetailsDTO> GetEmployeeDetailsById(int empId)
+        {
+            var employeeDetailsDTO = await GetAsync<EmployeeDetailsDTO>($"details/{empId}");
+            return employeeDetailsDTO;
+        }
+
         public async Task<IEnumerable<EmployeeDTO>> GetEmployees()
         {
             var employeesDTO = await GetAsync<IEnumerable<EmployeeDTO>>("all");
             return employeesDTO;
         }
+
+
     }
 }
