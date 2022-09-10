@@ -30,5 +30,8 @@ namespace Company.WebApp.Models
 
         [Display(Name = "Возраст")]
         public int Age { get; set; }
+
+        [Display(Name = "Кол-во проектов")]
+        public int CountProjects { get; set; }
     }
 }

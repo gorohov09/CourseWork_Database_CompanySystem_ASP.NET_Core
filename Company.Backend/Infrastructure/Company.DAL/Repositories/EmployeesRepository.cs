@@ -22,6 +22,6 @@ namespace Company.DAL.Repositories
             
 
         public async Task<IEnumerable<EmployeeEntity>> GetEmployees() =>
-            await _context.Employees.ToListAsync();
+            await _context.Employees.Include(P => P.EmployeeProjects).ToListAsync();
     }
 }

@@ -22,5 +22,13 @@ namespace Company.DAL.Repositories
 
             return projectsByEmployee;
         }
+
+        public async Task<int> GetCountProjectsFromEmployee(int employeeId)
+        {
+            var countProjects = await _context.EmployeesProjects.Where(ep => ep.EmployeeId == employeeId)
+                .CountAsync();
+
+            return countProjects;
+        }
     }
 }

@@ -5,5 +5,7 @@ namespace Company.DAL.Interfaces
     public interface IProjectRepository
     {
         Task<IEnumerable<ProjectEntity>> GetProjectByEmployee(int employeeId);
+
+        Task<int> GetCountProjectsFromEmployee(int employeeId);
     }
 }

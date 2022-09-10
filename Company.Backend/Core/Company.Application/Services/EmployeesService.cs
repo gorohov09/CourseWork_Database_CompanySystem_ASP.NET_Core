@@ -62,6 +62,7 @@ namespace Company.Application.Services
                 PhoneNumber = x.PhoneNumber,
                 Salary = x.Salary,
                 Age = CalculateAgeEmployee(x.Birthday),
+                CountProjects = x.EmployeeProjects.Count(),
             });
             return employeesVm;
         }
