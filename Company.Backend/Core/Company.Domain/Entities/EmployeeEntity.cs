@@ -22,5 +22,13 @@ namespace Company.Domain.Entities
         public decimal Salary { get; set; }
 
         public IEnumerable<EmployeeProjectEntity> EmployeeProjects { get; set; }
+
+        public int CalculateAgeEmployee()
+        {
+            var age = DateTime.Now.Year - Birthday.Year;
+            if (DateTime.Now.DayOfYear < Birthday.DayOfYear) //на случай, если день рождения уже прошёл
+                age++;
+            return age;
+        }
     }
 }

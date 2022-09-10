@@ -35,7 +35,7 @@ namespace Company.Application.Services
                 Email = employeeEntity.Email,
                 PhoneNumber = employeeEntity.PhoneNumber,
                 Salary = employeeEntity.Salary,
-                Age = CalculateAgeEmployee(employeeEntity.Birthday),
+                Age = employeeEntity.CalculateAgeEmployee(),
                 Projects = projectsEntity.Select(p => new ProjectVm
                 {
                     Id = p.Id,
@@ -61,18 +61,12 @@ namespace Company.Application.Services
                 Email = x.Email,
                 PhoneNumber = x.PhoneNumber,
                 Salary = x.Salary,
-                Age = CalculateAgeEmployee(x.Birthday),
+                Age = x.CalculateAgeEmployee(),
                 CountProjects = x.EmployeeProjects.Count(),
             });
             return employeesVm;
         }
 
-        private int CalculateAgeEmployee(DateTime date)
-        {
-            var age = DateTime.Now.Year - date.Year;
-            if (DateTime.Now.DayOfYear < date.DayOfYear) //на случай, если день рождения уже прошёл
-                age++;
-            return age;
-        }
+        
     }
 }
