@@ -1,5 +1,6 @@
 using Company.Clients.Employees;
 using Company.Clients.Interfaces;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +8,7 @@ var services = builder.Services;
 var configuration = builder.Configuration;
 
 services.AddControllersWithViews();
+services.AddAutoMapper(Assembly.GetEntryAssembly());
 
 //Clients
 services.AddHttpClient("Company.WebAPI", client => client.BaseAddress = new(configuration["WebAPI"]))

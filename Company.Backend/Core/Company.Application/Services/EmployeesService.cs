@@ -38,6 +38,7 @@ namespace Company.Application.Services
                 Age = CalculateAgeEmployee(employeeEntity.Birthday),
                 Projects = projectsEntity.Select(p => new ProjectVm
                 {
+                    Id = p.Id,
                     Title = p.Title,
                     Description = p.Description,
                     Status = GetStatusFromProject(p.Status)

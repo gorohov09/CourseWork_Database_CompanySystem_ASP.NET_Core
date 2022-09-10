@@ -41,7 +41,7 @@
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr class="trEmployee" style="cursor: pointer;" onclick="window.location.href='/Employees/Details'; return false">
+        <tr class="trEmployee" style="cursor: pointer;" onclick=@string.Format("window.location.href='/Employees/Details?empId={0}'; return false", item.Id)>
             <td>
                 @Html.DisplayFor(modelItem => item.Id)
             </td>
