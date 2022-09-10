@@ -2,7 +2,7 @@
 
 namespace Company.WebApp.Models
 {
-    public class EmployeeViewModel
+    public class EmployeeDetailsViewModel
     {
         [Display(Name = "Id")]
         public int Id { get; set; }
@@ -22,7 +22,7 @@ namespace Company.WebApp.Models
         [Display(Name = "Номер телефона")]
         public long PhoneNumber { get; set; }
 
-        [Display(Name = "E-mail")]
+        [Display(Name = "Электронная почта")]
         public string Email { get; set; }
 
         [Display(Name = "Зарплата")]
@@ -31,7 +31,6 @@ namespace Company.WebApp.Models
         [Display(Name = "Возраст")]
         public int Age { get; set; }
 
-        [Display(Name = "Кол-во проектов")]
-        public int CountProjects { get; set; }
+        public List<ProjectViewModel> Projects { get; set; }
     }
 }

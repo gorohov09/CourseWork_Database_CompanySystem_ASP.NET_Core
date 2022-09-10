@@ -1,0 +1,62 @@
+﻿@model Company.WebApp.Models.EmployeeDetailsViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div>
+    <h1>@Html.DisplayFor(model => model.LastName) @Html.DisplayFor(model => model.FirstName)</h1>
+    <h1>@Html.DisplayFor(model => model.Patronymic)</h1>
+    <h2>Участие в проектах</h2>
+    @if (Model.Projects.Count == 0)
+    {
+        <h3>На данного сотрудника никаких проектов не назначено</h3>
+    }
+    else
+    {
+        <table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Projects[0].Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Projects[0].Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Projects[0].Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Projects[0].Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Projects) {
+        <tr class="trEmployee" style="cursor: pointer;" onclick=@string.Format("window.location.href='/Employees/Details?empId={0}'; return false", item.Id)>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+    }
+    <hr />
+    <h2>@Html.DisplayNameFor(model => model.Birthday):</h2> @Html.DisplayFor(model => model.Birthday)
+    <h2>@Html.DisplayNameFor(model => model.PhoneNumber):</h2> @Html.DisplayFor(model => model.PhoneNumber)
+    <h2>@Html.DisplayNameFor(model => model.Email):</h2> @Html.DisplayFor(model => model.Email)
+    <h2>@Html.DisplayNameFor(model => model.Salary):</h2> @Html.DisplayFor(model => model.Salary)
+    <h2>@Html.DisplayNameFor(model => model.Age):</h2> @Html.DisplayFor(model => model.Age)
+</div>
+

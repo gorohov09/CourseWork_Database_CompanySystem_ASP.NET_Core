@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Company.Application.ViewModel
+﻿namespace Company.Application.ViewModel
 {
-    public class EmployeeVm
+    public class EmployeeDetailsVm
     {
         public int Id { get; set; }
 
@@ -26,6 +20,6 @@ namespace Company.Application.ViewModel
 
         public int Age { get; set; }
 
-        public int CountProjects { get; set; }
+        public List<ProjectVm> Projects { get; set; }
     }
 }

@@ -20,5 +20,7 @@ namespace Company.Domain.Entities
 
         [Column(TypeName = "decimal(18,2)")] //Указание типа, который храним в БД
         public decimal Salary { get; set; }
+
+        public IEnumerable<EmployeeProjectEntity> EmployeeProjects { get; set; }
     }
 }

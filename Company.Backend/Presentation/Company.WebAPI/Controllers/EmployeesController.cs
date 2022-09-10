@@ -27,5 +27,12 @@ namespace Company.WebAPI.Controllers
             return Ok(employeesDTO);
         }
 
+        [HttpGet("details/{empId}")]
+        public async Task<IActionResult> GetEmployeeById(int empId)
+        {
+            var employeeDetailsDTO = _mapper.Map<EmployeeDetailsDTO>(await _employeesService.GetEmployeeByIdVm(empId));
+            return Ok(employeeDetailsDTO);
+        }
+
     }
 }

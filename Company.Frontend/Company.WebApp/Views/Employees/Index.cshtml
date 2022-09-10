@@ -36,12 +36,15 @@
             <th>
                 @Html.DisplayNameFor(model => model.Age)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CountProjects)
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr class="trEmployee" style="cursor: pointer;" onclick="window.location.href='/Employees/Details'; return false">
+        <tr class="trEmployee" style="cursor: pointer;" onclick=@string.Format("window.location.href='/Employees/Details?empId={0}'; return false", item.Id)>
             <td>
                 @Html.DisplayFor(modelItem => item.Id)
             </td>
@@ -68,6 +71,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Age)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CountProjects)
             </td>
         </tr>
 }

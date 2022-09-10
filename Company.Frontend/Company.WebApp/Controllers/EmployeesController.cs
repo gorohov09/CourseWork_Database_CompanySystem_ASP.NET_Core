@@ -1,4 +1,5 @@
-﻿using Company.Clients.Interfaces;
+﻿using AutoMapper;
+using Company.Clients.Interfaces;
 using Company.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,28 +9,27 @@ namespace Company.WebApp.Controllers
     {
         private readonly IEmployeesClient _employeesClient;
 
-        public EmployeesController(IEmployeesClient employeesClient)
+        private readonly IMapper _mapper;
+
+        public EmployeesController(IEmployeesClient employeesClient, IMapper mapper)
         {
             _employeesClient = employeesClient;
+            _mapper = mapper;
         }
 
         [HttpGet]
         public async Task<IActionResult> Index()
         {
             var employeesDTO = await _employeesClient.GetEmployees();
-            var result = employeesDTO.Select(e => new EmployeeViewModel
-            {
-                Id = e.Id,
-                FirstName = e.FirstName,
-                LastName = e.LastName,
-                Patronymic = e.Patronymic,
-                Birthday = e.Birthday,
-                Age = e.Age,
-                Email = e.Email,
-                PhoneNumber = e.PhoneNumber,
-                Salary = e.Salary,
-            });
+            var result = _mapper.Map<IEnumerable<EmployeeViewModel>>(employeesDTO);
+            return View(result);
+        }
 
+        [HttpGet]
+        public async Task<IActionResult> Details(int empId)
+        {
+            var employeeDetailsDTO = await _employeesClient.GetEmployeeDetailsById(empId);
+            var result = _mapper.Map<EmployeeDetailsViewModel>(employeeDetailsDTO);
             return View(result);
         }
     }

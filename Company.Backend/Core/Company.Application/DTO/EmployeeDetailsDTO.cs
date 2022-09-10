@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Company.Application.ViewModel
+namespace Company.Application.DTO
 {
-    public class EmployeeVm
+    public class EmployeeDetailsDTO
     {
         public int Id { get; set; }
 
@@ -26,6 +26,6 @@ namespace Company.Application.ViewModel
 
         public int Age { get; set; }
 
-        public int CountProjects { get; set; }
+        public List<ProjectDTO> Projects { get; set; }
     }
 }
