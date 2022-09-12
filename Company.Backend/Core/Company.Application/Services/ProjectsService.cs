@@ -9,22 +9,59 @@ namespace Company.Application.Services
     {
         private readonly IProjectRepository _projectRepository;
 
-        public ProjectsService(IProjectRepository projectRepository)
+        private readonly IEmployeesRepository _employeesRepository;
+
+        public ProjectsService(IProjectRepository projectRepository, IEmployeesRepository employeesRepository)
         {
             _projectRepository = projectRepository;
+            _employeesRepository = employeesRepository;
+        }
+
+        public async Task<bool> AssigneProjectToEmployee(int employeeId, int projectId)
+        {
+            var employeeEntity = await _employeesRepository.GetEmployeeById(employeeId);
+            var projectEntity = await _projectRepository.GetProjectById(projectId);
+
+            if (employeeEntity == null || projectEntity == null)
+                return false;
+
+            var result = await _projectRepository.AssigneProjectToEmployee(employeeEntity.Id, projectEntity.Id);
+
+            return result;
         }
 
         public async Task<IEnumerable<ProjectVm>> GetAllProjectsVm()
         {
             var projectsEntity = await _projectRepository.GetAllProjects();
-            var projectsVm = projectsEntity.Select(p => new ProjectVm
+            List<ProjectVm> projectVmList = new List<ProjectVm>();
+            foreach (var projectEntity in projectsEntity)
             {
-                Id = p.Id,
-                Title = p.Title,
-                Description = p.Description,
-                Status = p.GetStatusFromProject()
-            });
-            return projectsVm;
+                var employeeEntity = await _employeesRepository.GetEmployeeByProject(projectEntity.Id);
+
+                var employeeVm = new EmployeeVm();
+                if (employeeEntity == null)
+                {
+                    employeeVm = null;
+                }
+                else
+                {
+                    employeeVm.Id = employeeEntity.Id;
+                    employeeVm.LastName = employeeEntity.LastName;
+                    employeeVm.FirstName = employeeEntity.FirstName;
+                }
+
+                var projectVm = new ProjectVm
+                {
+                    Id = projectEntity.Id,
+                    Title = projectEntity.Title,
+                    Description = projectEntity.Description,
+                    Status = projectEntity.GetStatusFromProject(),
+                    Employee = employeeVm
+                };
+
+                projectVmList.Add(projectVm);
+            }
+            return projectVmList;
         }
     }
 }

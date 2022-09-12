@@ -12,7 +12,8 @@ services.AddAutoMapper(Assembly.GetEntryAssembly());
 
 //Clients
 services.AddHttpClient("Company.WebAPI", client => client.BaseAddress = new(configuration["WebAPI"]))
-    .AddTypedClient<IEmployeesClient, EmployeesClient>();
+    .AddTypedClient<IEmployeesClient, EmployeesClient>()
+    .AddTypedClient<IProjectsClient, ProjectsClient>();
 
 
 var app = builder.Build();

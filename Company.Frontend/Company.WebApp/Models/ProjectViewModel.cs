@@ -15,5 +15,8 @@ namespace Company.WebApp.Models
 
         [Display(Name = "Статус")]
         public string Status { get; set; }
+
+        [Display(Name = "Главный сотрудник")]
+        public EmployeeViewModel Employee { get; set; }
     }
 }

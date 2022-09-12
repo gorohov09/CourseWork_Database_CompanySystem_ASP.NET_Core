@@ -36,5 +36,24 @@ namespace Company.DAL.Repositories
             var projectsEntityes = await _context.Projects.ToListAsync();
             return projectsEntityes;
         }
+
+        public async Task<bool> AssigneProjectToEmployee(int employeeId, int projectId)
+        {
+            EmployeeProjectEntity employeeProjectEntity = new EmployeeProjectEntity()
+            {
+                ProjectId = projectId,
+                EmployeeId = employeeId,
+            };
+
+            _context.EmployeesProjects.Add(employeeProjectEntity);
+
+            return (await _context.SaveChangesAsync() > 0);
+        }
+
+        public async Task<ProjectEntity> GetProjectById(int ptojectId)
+        {
+            var projectEntity = await _context.Projects.FirstOrDefaultAsync(p => p.Id == ptojectId);
+            return projectEntity;
+        }
     }
 }

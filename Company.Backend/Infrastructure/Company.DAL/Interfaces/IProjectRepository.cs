@@ -9,5 +9,9 @@ namespace Company.DAL.Interfaces
         Task<IEnumerable<ProjectEntity>> GetProjectByEmployee(int employeeId);
 
         Task<int> GetCountProjectsFromEmployee(int employeeId);
+
+        Task<bool> AssigneProjectToEmployee(int employeeId, int projectId);
+
+        Task<ProjectEntity> GetProjectById(int ptojectId);
     }
 }

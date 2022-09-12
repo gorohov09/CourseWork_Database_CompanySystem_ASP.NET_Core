@@ -24,6 +24,7 @@ services.AddDbContext<CompanyContext>(options =>
 
 //Services
 services.AddScoped<IEmployeesService, EmployeesService>();
+services.AddScoped<IProjectsService, ProjectsService>();
 services.AddTransient<IDbInitializer, DbInitializer>();
 
 //Repository

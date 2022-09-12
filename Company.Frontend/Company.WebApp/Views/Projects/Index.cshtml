@@ -1,0 +1,69 @@
+﻿@model MainProjectViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Список проектов</h2>
+
+<table class="table">
+    @*<thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Employee)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>*@
+    <tbody>
+@foreach (var item in Model.Projects) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                    @if (item.Employee == null)
+                    {
+                        <form asp-controller="Projects" asp-action="AssigneEmployee" asp-route-projectId=@item.Id>
+                            <select asp-for="EmployeeId" 
+                                asp-items="@Model.Employees">
+                                <option>Выберете сотрудника</option>
+                             </select>
+                            <p>
+                            <input type="submit" value="Сохранить" />
+                            </p>
+                        </form> 
+                    }
+                    else
+                    {
+                        <a asp-controller="Employees" asp-action="Details" asp-route-empId="@item.Employee.Id">@Html.DisplayFor(modelItem => item.Employee.LastName) @Html.DisplayFor(modelItem => item.Employee.FirstName)</a>
+                    }
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+
