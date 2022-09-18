@@ -28,7 +28,7 @@ else
                 @Html.DisplayNameFor(model => model.Projects[0].Status)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Projects[0].Employee)
+                @Html.DisplayNameFor(model => model.Projects[0].EmployeeMaster)
             </th>
 
             <th></th>
@@ -50,7 +50,7 @@ else
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
             <td>
-                    @if (item.Employee == null)
+                    @if (item.EmployeeMaster == null)
                     {
                         <form asp-controller="Projects" asp-action="AssigneEmployee" asp-route-projectId=@item.Id asp-route-isMaster=@true >
                             <select asp-for="EmployeeId" 
@@ -64,7 +64,7 @@ else
                     }
                     else
                     {
-                        <a asp-controller="Employees" asp-action="Details" asp-route-empId="@item.Employee.Id">@Html.DisplayFor(modelItem => item.Employee.LastName) @Html.DisplayFor(modelItem => item.Employee.FirstName)</a>
+                        <a asp-controller="Employees" asp-action="Details" asp-route-empId="@item.EmployeeMaster.Id">@Html.DisplayFor(modelItem => item.EmployeeMaster.LastName) @Html.DisplayFor(modelItem => item.EmployeeMaster.FirstName)</a>
                     }
             </td>
         </tr>

@@ -13,7 +13,7 @@
         /// <summary>
         /// Главный сотрудник на проекте
         /// </summary>
-        public EmployeeVm Employee { get; set; }
+        public EmployeeMasterVm EmployeeMaster { get; set; }
 
         public IEnumerable<EmployeeVm> Employees { get; set; }
     }

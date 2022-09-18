@@ -13,6 +13,6 @@
         /// <summary>
         /// Главный сотрудник на проекте
         /// </summary>
-        public EmployeeVm Employee { get; set; }
+        public EmployeeMasterVm EmployeeMaster { get; set; }
     }
 }

@@ -32,21 +32,23 @@ namespace Company.Application.Services
         public async Task<IEnumerable<ProjectVm>> GetAllProjectsVm()
         {
             var projectsEntity = await _projectRepository.GetAllProjects();
-            List<ProjectVm> projectVmList = new List<ProjectVm>();
+            List<ProjectVm> projectsVmList = new List<ProjectVm>();
             foreach (var projectEntity in projectsEntity)
             {
-                var employeeEntity = await _employeesRepository.GetMasterEmployeeByProject(projectEntity.Id);
+                var employeeMasterEntity = await _employeesRepository.GetMasterEmployeeByProject(projectEntity.Id);
 
-                var employeeVm = new EmployeeVm();
-                if (employeeEntity == null)
+                var employeeMasterVm = new EmployeeMasterVm();
+                if (employeeMasterEntity == null)
                 {
-                    employeeVm = null;
+                    employeeMasterVm = null;
                 }
                 else
                 {
-                    employeeVm.Id = employeeEntity.Id;
-                    employeeVm.LastName = employeeEntity.LastName;
-                    employeeVm.FirstName = employeeEntity.FirstName;
+                    employeeMasterVm.Id = employeeMasterEntity.Id;
+                    employeeMasterVm.LastName = employeeMasterEntity.LastName;
+                    employeeMasterVm.FirstName = employeeMasterEntity.FirstName;
+                    employeeMasterVm.PhoneNumber = employeeMasterEntity.PhoneNumber;
+                    employeeMasterVm.Email = employeeMasterEntity.Email;
                 }
 
                 var projectVm = new ProjectVm
@@ -55,47 +57,61 @@ namespace Company.Application.Services
                     Title = projectEntity.Title,
                     Description = projectEntity.Description,
                     Status = projectEntity.GetStatusFromProject(),
-                    Employee = employeeVm
+                    EmployeeMaster = employeeMasterVm
                 };
 
-                projectVmList.Add(projectVm);
+                projectsVmList.Add(projectVm);
             }
-            return projectVmList;
+            return projectsVmList;
         }
 
         public async Task<ProjectDetailsVm> GetProjectDetailsVm(int projectId)
         {
             var projectEntity = await _projectRepository.GetProjectById(projectId);
 
-            var employeeEntity = await _employeesRepository.GetMasterEmployeeByProject(projectEntity.Id);
-
-            var projectEmployeesEntity = await _employeesRepository.GetAllEmployeesByProject(projectEntity.Id);
+            if (projectEntity == null)
+                throw new Exception("Проект не найден");
 
             var projectDetailsVm = new ProjectDetailsVm
             {
                 Id = projectEntity.Id,
                 Title = projectEntity.Title,
                 Description = projectEntity.Description,
-                Status = projectEntity.GetStatusFromProject(),
-                Employee = new EmployeeVm
+                Status = projectEntity.GetStatusFromProject()
+            };
+
+            var employeeEntity = await _employeesRepository.GetMasterEmployeeByProject(projectEntity.Id);
+
+            if (employeeEntity == null)
+                projectDetailsVm.EmployeeMaster = null;
+            else
+            {
+                projectDetailsVm.EmployeeMaster = new EmployeeMasterVm
                 {
-                    Id= employeeEntity.Id,
+                    Id = employeeEntity.Id,
                     LastName = employeeEntity.LastName,
                     FirstName = employeeEntity.FirstName,
-                    Patronymic = employeeEntity.Patronymic,
                     Email = employeeEntity.Email,
                     PhoneNumber = employeeEntity.PhoneNumber,
-                },
-                Employees = projectEmployeesEntity.Where(e => e.Id != employeeEntity.Id).Select(e => new EmployeeVm
+                };
+            }
+
+            var projectEmployeesEntity = await _employeesRepository.GetAllEmployeesByProject(projectEntity.Id);
+
+            if (projectEmployeesEntity.Count() == 0)
+                projectDetailsVm.Employees = null;
+            else
+            {
+                projectDetailsVm.Employees = projectEmployeesEntity.Where(e => e.Id != employeeEntity?.Id).Select(e => new EmployeeVm
                 {
-                    Id= e.Id,
-                    LastName= e.LastName,
-                    FirstName= e.FirstName,
+                    Id = e.Id,
+                    LastName = e.LastName,
+                    FirstName = e.FirstName,
                     Patronymic = e.Patronymic,
                     PhoneNumber = e.PhoneNumber,
                     Email = e.Email,
-                }),
-            };
+                });
+            }
 
             return projectDetailsVm;
         }
