@@ -37,12 +37,13 @@ namespace Company.DAL.Repositories
             return projectsEntityes;
         }
 
-        public async Task<bool> AssigneProjectToEmployee(int employeeId, int projectId)
+        public async Task<bool> AssigneProjectToEmployee(int employeeId, int projectId, bool isMaster = false)
         {
             EmployeeProjectEntity employeeProjectEntity = new EmployeeProjectEntity()
             {
                 ProjectId = projectId,
                 EmployeeId = employeeId,
+                IsMaster = isMaster
             };
 
             _context.EmployeesProjects.Add(employeeProjectEntity);

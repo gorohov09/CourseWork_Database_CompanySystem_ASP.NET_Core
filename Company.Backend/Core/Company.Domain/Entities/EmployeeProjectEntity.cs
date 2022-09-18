@@ -14,6 +14,9 @@ namespace Company.Domain.Entities
         public int ProjectId { get; set; }
         public ProjectEntity Project { get; set; }
 
-
+        /// <summary>
+        /// Является ли сотрудник, главным на проекте
+        /// </summary>
+        public bool IsMaster { get; set; }
     }
 }

@@ -24,7 +24,8 @@ namespace Company.DAL
                                 Title = "Посчитать смету за сентябрь",
                                 Description = "Необходимо выполнить расчет сметы №234. По вопросам обращаться к руководителю",
                                 Status = Status.OPEN,
-                            }
+                            },
+                            IsMaster = true,
                         },
                         new EmployeeProjectEntity { Project = new ProjectEntity
                             {
@@ -32,6 +33,27 @@ namespace Company.DAL
                                 Description = "Необходимо выполнить анализ продаж. По вопросам обращаться к руководителю",
                                 Status = Status.OPEN,
                             }
+                        },
+                    }
+                },
+                new EmployeeEntity
+                {
+                    LastName = "Курочкин",
+                    FirstName = "Владислав",
+                    Patronymic = "Романович",
+                    Birthday = new DateTime(2003, 6, 22),
+                    Email = "kurochkin@yandex.ru",
+                    PhoneNumber = 89563452389,
+                    Salary = 20000,
+                    EmployeeProjects = new List<EmployeeProjectEntity>
+                    {
+                        new EmployeeProjectEntity { Project = new ProjectEntity
+                            {
+                                Title = "Стоять на кассе",
+                                Description = "Необходимо стоять на кассе",
+                                Status = Status.OPEN,
+                            },
+                            IsMaster= true,
                         },
                     }
                 }

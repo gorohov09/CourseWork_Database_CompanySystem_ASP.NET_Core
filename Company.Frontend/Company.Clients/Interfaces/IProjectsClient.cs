@@ -6,6 +6,6 @@ namespace Company.Clients.Interfaces
     {
         Task<IEnumerable<ProjectDTO>> GetProjects();
 
-        Task<bool> AssigneProjectToEmployee(int projectId, int employeeId);
+        Task<bool> AssigneProjectToEmployee(int projectId, int employeeId, bool isMaster = false);
     }
 }

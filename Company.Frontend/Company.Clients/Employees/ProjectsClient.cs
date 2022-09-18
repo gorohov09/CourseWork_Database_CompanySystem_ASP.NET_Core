@@ -12,12 +12,13 @@ namespace Company.Clients.Employees
         {
         }
 
-        public async Task<bool> AssigneProjectToEmployee(int projectId, int employeeId)
+        public async Task<bool> AssigneProjectToEmployee(int projectId, int employeeId, bool isMater = false)
         {
             var dtoModel = new AssigneProjectToEmployeeDTO
             {
                 ProjectId = projectId,
-                EmployeeId = employeeId
+                EmployeeId = employeeId,
+                IsMaster = isMater,
             };
 
             var response = await PostAsync("assigneToEmployee", dtoModel);

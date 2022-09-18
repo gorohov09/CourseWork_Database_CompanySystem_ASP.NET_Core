@@ -31,7 +31,7 @@ namespace Company.WebAPI.Controllers
         [HttpPost("assigneToEmployee")]
         public async Task<IActionResult> AssigneToEmployee([FromBody]AssigneProjectToEmployeeDTO model)
         {
-            var result = await _projectsService.AssigneProjectToEmployee(model.EmployeeId, model.ProjectId);
+            var result = await _projectsService.AssigneProjectToEmployee(model.EmployeeId, model.ProjectId, model.IsMaster);
             return Ok(result);
         }
     }

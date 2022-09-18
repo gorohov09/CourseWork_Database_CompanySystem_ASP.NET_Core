@@ -10,6 +10,9 @@
 
         public string Status { get; set; }
 
+        /// <summary>
+        /// Главный сотрудник на проекте
+        /// </summary>
         public EmployeeVm Employee { get; set; }
     }
 }

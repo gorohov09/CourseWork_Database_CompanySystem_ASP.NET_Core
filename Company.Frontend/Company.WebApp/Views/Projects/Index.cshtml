@@ -52,7 +52,7 @@ else
             <td>
                     @if (item.Employee == null)
                     {
-                        <form asp-controller="Projects" asp-action="AssigneEmployee" asp-route-projectId=@item.Id>
+                        <form asp-controller="Projects" asp-action="AssigneEmployee" asp-route-projectId=@item.Id asp-route-isMaster=@true >
                             <select asp-for="EmployeeId" 
                                 asp-items="@Model.Employees">
                                 <option>Выберете сотрудника</option>

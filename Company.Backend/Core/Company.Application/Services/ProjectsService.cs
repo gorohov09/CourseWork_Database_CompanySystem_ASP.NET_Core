@@ -17,7 +17,7 @@ namespace Company.Application.Services
             _employeesRepository = employeesRepository;
         }
 
-        public async Task<bool> AssigneProjectToEmployee(int employeeId, int projectId)
+        public async Task<bool> AssigneProjectToEmployee(int employeeId, int projectId, bool isMaster = false)
         {
             var employeeEntity = await _employeesRepository.GetEmployeeById(employeeId);
             var projectEntity = await _projectRepository.GetProjectById(projectId);
@@ -25,7 +25,7 @@ namespace Company.Application.Services
             if (employeeEntity == null || projectEntity == null)
                 return false;
 
-            var result = await _projectRepository.AssigneProjectToEmployee(employeeEntity.Id, projectEntity.Id);
+            var result = await _projectRepository.AssigneProjectToEmployee(employeeEntity.Id, projectEntity.Id, isMaster);
 
             return result;
         }
@@ -36,7 +36,7 @@ namespace Company.Application.Services
             List<ProjectVm> projectVmList = new List<ProjectVm>();
             foreach (var projectEntity in projectsEntity)
             {
-                var employeeEntity = await _employeesRepository.GetEmployeeByProject(projectEntity.Id);
+                var employeeEntity = await _employeesRepository.GetMasterEmployeeByProject(projectEntity.Id);
 
                 var employeeVm = new EmployeeVm();
                 if (employeeEntity == null)

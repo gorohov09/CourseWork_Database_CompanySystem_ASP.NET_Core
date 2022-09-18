@@ -40,9 +40,9 @@ namespace Company.WebApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AssigneEmployee(int projectId, MainProjectViewModel model)
+        public async Task<IActionResult> AssigneEmployee(int projectId, bool isMaster, MainProjectViewModel model)
         {
-            var result = _projectsClient.AssigneProjectToEmployee(projectId, model.EmployeeId);
+            var result = _projectsClient.AssigneProjectToEmployee(projectId, model.EmployeeId, isMaster);
 
             return RedirectToAction("Index");
         }

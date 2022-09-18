@@ -8,6 +8,6 @@ namespace Company.DAL.Interfaces
 
         Task<EmployeeEntity?> GetEmployeeById(int employeeId);
 
-        Task<EmployeeEntity> GetEmployeeByProject(int projectId);
+        Task<EmployeeEntity> GetMasterEmployeeByProject(int projectId);
     }
 }
