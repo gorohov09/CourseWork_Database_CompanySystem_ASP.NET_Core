@@ -28,7 +28,7 @@ namespace Company.WebApp.Controllers
             var employees = _mapper.Map<IEnumerable<EmployeeViewModel>>(await _employeesClient.GetEmployees());
             var result = new MainProjectViewModel
             {
-                Projects = projects,
+                Projects = projects.ToList(),
                 Employees = employees.Select(x => new SelectListItem
                 {
                     Value = $"{x.Id}",

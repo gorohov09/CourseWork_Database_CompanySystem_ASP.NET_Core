@@ -6,28 +6,34 @@
 
 <h2>Список проектов</h2>
 
-<table class="table">
-    @*<thead>
+@if (Model.Projects.Count() == 0)
+{
+    <p>Никаких проектов нет</p>
+}
+else
+{
+    <table class="table">
+    <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
+                @Html.DisplayNameFor(model => model.Projects[0].Id)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Title)
+                @Html.DisplayNameFor(model => model.Projects[0].Title)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
+                @Html.DisplayNameFor(model => model.Projects[0].Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Status)
+                @Html.DisplayNameFor(model => model.Projects[0].Status)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Employee)
+                @Html.DisplayNameFor(model => model.Projects[0].Employee)
             </th>
 
             <th></th>
         </tr>
-    </thead>*@
+    </thead>
     <tbody>
 @foreach (var item in Model.Projects) {
         <tr>
@@ -65,5 +71,8 @@
 }
     </tbody>
 </table>
+}
+
+
 
 

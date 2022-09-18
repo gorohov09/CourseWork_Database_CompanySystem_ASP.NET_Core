@@ -4,7 +4,7 @@ namespace Company.WebApp.Models
 {
     public class MainProjectViewModel
     {
-        public IEnumerable<ProjectViewModel> Projects { get; set; }
+        public List<ProjectViewModel> Projects { get; set; }
 
         public List<SelectListItem> Employees { set; get; }
 
