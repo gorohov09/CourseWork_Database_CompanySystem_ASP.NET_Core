@@ -11,6 +11,7 @@ namespace Company.WebAPI.Helpers.AutoMapper
             CreateMap<EmployeeVm, EmployeeDTO>().ReverseMap();
             CreateMap<EmployeeDetailsVm, EmployeeDetailsDTO>().ReverseMap();
             CreateMap<ProjectVm, ProjectDTO>().ReverseMap();
+            CreateMap<ProjectDetailsVm, ProjectDetailsDTO>().ReverseMap();
         }
     }
 }

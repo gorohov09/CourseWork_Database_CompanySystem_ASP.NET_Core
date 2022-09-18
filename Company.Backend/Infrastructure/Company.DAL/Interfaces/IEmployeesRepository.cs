@@ -9,5 +9,7 @@ namespace Company.DAL.Interfaces
         Task<EmployeeEntity?> GetEmployeeById(int employeeId);
 
         Task<EmployeeEntity> GetMasterEmployeeByProject(int projectId);
+
+        Task<IEnumerable<EmployeeEntity>> GetAllEmployeesByProject(int projectId);
     }
 }

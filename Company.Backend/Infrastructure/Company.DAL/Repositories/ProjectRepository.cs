@@ -51,9 +51,9 @@ namespace Company.DAL.Repositories
             return (await _context.SaveChangesAsync() > 0);
         }
 
-        public async Task<ProjectEntity> GetProjectById(int ptojectId)
+        public async Task<ProjectEntity> GetProjectById(int projectId)
         {
-            var projectEntity = await _context.Projects.FirstOrDefaultAsync(p => p.Id == ptojectId);
+            var projectEntity = await _context.Projects.FirstOrDefaultAsync(p => p.Id == projectId);
             return projectEntity;
         }
     }

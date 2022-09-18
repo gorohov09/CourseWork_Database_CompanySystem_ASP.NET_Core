@@ -28,6 +28,14 @@ namespace Company.WebAPI.Controllers
             return Ok(projectsDTO);
         }
 
+        [HttpGet("details/{projectId}")]
+        public async Task<IActionResult> GetById(int projectId)
+        {
+            var projectDetails =  await _projectsService.GetProjectDetailsVm(projectId);
+            var projectDetailsDTO = _mapper.Map<ProjectDetailsDTO>(projectDetails);
+            return Ok(projectDetailsDTO);
+        }
+
         [HttpPost("assigneToEmployee")]
         public async Task<IActionResult> AssigneToEmployee([FromBody]AssigneProjectToEmployeeDTO model)
         {

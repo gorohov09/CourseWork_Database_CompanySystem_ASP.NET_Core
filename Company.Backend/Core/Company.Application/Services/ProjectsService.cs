@@ -1,7 +1,6 @@
 ﻿using Company.Application.Interfaces;
 using Company.Application.ViewModel;
 using Company.DAL.Interfaces;
-using Company.Domain.Entities;
 
 namespace Company.Application.Services
 {
@@ -62,6 +61,43 @@ namespace Company.Application.Services
                 projectVmList.Add(projectVm);
             }
             return projectVmList;
+        }
+
+        public async Task<ProjectDetailsVm> GetProjectDetailsVm(int projectId)
+        {
+            var projectEntity = await _projectRepository.GetProjectById(projectId);
+
+            var employeeEntity = await _employeesRepository.GetMasterEmployeeByProject(projectEntity.Id);
+
+            var projectEmployeesEntity = await _employeesRepository.GetAllEmployeesByProject(projectEntity.Id);
+
+            var projectDetailsVm = new ProjectDetailsVm
+            {
+                Id = projectEntity.Id,
+                Title = projectEntity.Title,
+                Description = projectEntity.Description,
+                Status = projectEntity.GetStatusFromProject(),
+                Employee = new EmployeeVm
+                {
+                    Id= employeeEntity.Id,
+                    LastName = employeeEntity.LastName,
+                    FirstName = employeeEntity.FirstName,
+                    Patronymic = employeeEntity.Patronymic,
+                    Email = employeeEntity.Email,
+                    PhoneNumber = employeeEntity.PhoneNumber,
+                },
+                Employees = projectEmployeesEntity.Where(e => e.Id != employeeEntity.Id).Select(e => new EmployeeVm
+                {
+                    Id= e.Id,
+                    LastName= e.LastName,
+                    FirstName= e.FirstName,
+                    Patronymic = e.Patronymic,
+                    PhoneNumber = e.PhoneNumber,
+                    Email = e.Email,
+                }),
+            };
+
+            return projectDetailsVm;
         }
     }
 }
