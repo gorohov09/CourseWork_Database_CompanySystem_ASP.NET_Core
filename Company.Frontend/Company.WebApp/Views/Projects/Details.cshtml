@@ -1,0 +1,36 @@
+﻿@model Company.WebApp.Models.ProjectDetailsViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>@Html.DisplayNameFor(model => model.Title): @Html.DisplayFor(model => model.Title)</h1>
+<h2>@Html.DisplayNameFor(model => model.Status): @Html.DisplayFor(model => model.Status)</h2>
+
+@if (Model.EmployeeMaster == null)
+{
+    <h2>Главный сотрудник не назначен</h2>
+}
+else
+{
+    <h2>@Html.DisplayNameFor(model => model.EmployeeMaster): <a asp-controller="Employees" asp-action="Details" asp-route-empId=@Model.EmployeeMaster.Id>@Html.DisplayFor(model => model.EmployeeMaster.LastName) @Html.DisplayFor(model => model.EmployeeMaster.FirstName)</a></h2>
+}
+
+<h2>@Html.DisplayNameFor(model => model.Description): @Html.DisplayFor(model => model.Description)</h2>
+
+<h2>@Html.DisplayNameFor(model => model.Employees):</h2>
+@if (Model.Employees == null ||Model.Employees.Count() == 0)
+{
+    <h3>Другие сотрудники не назначены</h3>
+}
+else
+{
+    @foreach (var e in Model.Employees)
+{
+    <h3><a asp-controller="Employees" asp-action="Details" asp-route-empId=@e.Id>@e.LastName @e.FirstName @e.Email @e.PhoneNumber</a></h3>
+}
+}
+
+
+
+

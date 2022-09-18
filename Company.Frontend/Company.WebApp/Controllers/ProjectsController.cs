@@ -39,6 +39,14 @@ namespace Company.WebApp.Controllers
             return View(result);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Details(int projectId)
+        {
+            var projectDetailsDTO = await _projectsClient.GetProjectById(projectId);
+            var result = _mapper.Map<ProjectDetailsViewModel>(projectDetailsDTO);
+            return View(result);
+        }
+
         [HttpPost]
         public async Task<IActionResult> AssigneEmployee(int projectId, bool isMaster, MainProjectViewModel model)
         {

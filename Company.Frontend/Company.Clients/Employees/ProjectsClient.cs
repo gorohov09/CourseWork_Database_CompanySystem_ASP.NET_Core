@@ -30,6 +30,12 @@ namespace Company.Clients.Employees
             return success;
         }
 
+        public async Task<ProjectDetailsDTO> GetProjectById(int projectId)
+        {
+            var projectDetailsDTO = await GetAsync<ProjectDetailsDTO>($"details/{projectId}");
+            return projectDetailsDTO;
+        }
+
         public async Task<IEnumerable<ProjectDTO>> GetProjects()
         {
             var projectsDTO = await GetAsync<IEnumerable<ProjectDTO>>("all");
