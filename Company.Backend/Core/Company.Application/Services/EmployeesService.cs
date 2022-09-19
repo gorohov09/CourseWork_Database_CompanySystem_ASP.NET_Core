@@ -48,6 +48,30 @@ namespace Company.Application.Services
             return employeesVm;
         }
 
+        public async Task<IEnumerable<EmployeeVm>> GetEmployeeNotThisProject(int projectId)
+        {
+            var employeesByProjectEntity = await _employeesRepository.GetAllEmployeesByProject(projectId);
+            var idsEmployees = employeesByProjectEntity.Select(p => p.Id).ToArray();
+
+            var employees = await _employeesRepository.GetEmployees(idsEmployees);
+
+            var employeesVm = employees.Select(x => new EmployeeVm
+            {
+                Id = x.Id,
+                LastName = x.LastName,
+                FirstName = x.FirstName,
+                Patronymic = x.Patronymic,
+                Birthday = x.Birthday.ToShortDateString(),
+                Email = x.Email,
+                PhoneNumber = x.PhoneNumber,
+                Salary = x.Salary,
+                Age = x.CalculateAgeEmployee(),
+                CountProjects = x.EmployeeProjects.Count(),
+            });
+            return employeesVm;
+
+        }
+
         public async Task<IEnumerable<EmployeeVm>> GetEmployeeVm()
         {
             var employesEntity = await _employeesRepository.GetEmployees();

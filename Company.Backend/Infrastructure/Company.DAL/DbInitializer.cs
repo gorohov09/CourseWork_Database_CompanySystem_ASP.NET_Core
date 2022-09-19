@@ -28,6 +28,8 @@ namespace Company.DAL
 
             await InitializerEmployeesAsync(cancel).ConfigureAwait(false);
 
+            await InitializeProjectsAsync(cancel).ConfigureAwait(false);
+
             _logger.LogInformation("Инициализация БД выполнена успешно");
         }
 
@@ -49,7 +51,7 @@ namespace Company.DAL
         {
             if (await _context.Employees.AnyAsync())
             {
-                _logger.LogInformation("Инициализация тестовых данных не требуется");
+                _logger.LogInformation("Инициализация сотрудников не требуется");
                 return;
             }
 
@@ -62,7 +64,27 @@ namespace Company.DAL
                 await _context.Database.CommitTransactionAsync(cancel);
             }
 
-            _logger.LogInformation("Инициализация тестовых данных выполнена успешно");
+            _logger.LogInformation("Инициализация сотрудников выполнена успешно");
+        }
+
+        private async Task InitializeProjectsAsync(CancellationToken cancel)
+        {
+            //if (await _context.Projects.AnyAsync())
+            //{
+            //    _logger.LogInformation("Инициализация проектов не требуется");
+            //    return;
+            //}
+
+            await using (await _context.Database.BeginTransactionAsync())
+            {
+                await _context.AddRangeAsync(TestData.ProjectsEntities, cancel);
+
+                await _context.SaveChangesAsync(cancel);
+
+                await _context.Database.CommitTransactionAsync(cancel);
+            }
+
+            _logger.LogInformation("Инициализация проектов выполнена успешно");
         }
     }
 }

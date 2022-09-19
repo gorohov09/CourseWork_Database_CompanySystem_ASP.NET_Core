@@ -4,7 +4,7 @@ namespace Company.DAL.Interfaces
 {
     public interface IEmployeesRepository
     {
-        Task<IEnumerable<EmployeeEntity>> GetEmployees();
+        Task<IEnumerable<EmployeeEntity>> GetEmployees(int[] ids = null);
 
         Task<EmployeeEntity?> GetEmployeeById(int employeeId);
 

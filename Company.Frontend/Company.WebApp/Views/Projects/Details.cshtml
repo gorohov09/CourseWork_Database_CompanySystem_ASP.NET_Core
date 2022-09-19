@@ -22,6 +22,7 @@ else
 @if (Model.Employees == null ||Model.Employees.Count() == 0)
 {
     <h3>Другие сотрудники не назначены</h3>
+    <a asp-controller="Projects" asp-action="AssigneToEmployee" asp-route-projectId=@Model.Id>Назначить сотрудника</a>
 }
 else
 {
@@ -29,6 +30,7 @@ else
 {
     <h3><a asp-controller="Employees" asp-action="Details" asp-route-empId=@e.Id>@e.LastName @e.FirstName @e.Email @e.PhoneNumber</a></h3>
 }
+    <a asp-controller="Projects" asp-action="AssigneToEmployee" asp-route-projectId=@Model.Id>Назначить сотрудника</a>
 }
 
 

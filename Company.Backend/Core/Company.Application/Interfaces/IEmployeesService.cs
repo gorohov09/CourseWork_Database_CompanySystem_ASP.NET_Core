@@ -7,5 +7,7 @@ namespace Company.Application.Interfaces
         Task<IEnumerable<EmployeeVm>> GetEmployeeVm();
 
         Task<EmployeeDetailsVm> GetEmployeeByIdVm(int employeeId);
+
+        Task<IEnumerable<EmployeeVm>> GetEmployeeNotThisProject(int projectId);
     }
 }

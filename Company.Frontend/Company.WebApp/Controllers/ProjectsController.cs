@@ -50,9 +50,28 @@ namespace Company.WebApp.Controllers
         [HttpPost]
         public async Task<IActionResult> AssigneEmployee(int projectId, bool isMaster, MainProjectViewModel model)
         {
-            var result = _projectsClient.AssigneProjectToEmployee(projectId, model.EmployeeId, isMaster);
+            var result = await _projectsClient.AssigneProjectToEmployee(projectId, model.EmployeeId, isMaster);
 
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AssigneToEmployee(int projectId)
+        {
+            var employeesNotProject = await _employeesClient.GetEmployeesNotProject(projectId);
+            var result = _mapper.Map<IEnumerable<EmployeeViewModel>>(employeesNotProject);
+
+            ViewBag.ProjectId = projectId;
+
+            return View(result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AssigneToEmployee(int projectId, int employeeId, bool isMaster)
+        {
+            var result = await _projectsClient.AssigneProjectToEmployee(projectId, employeeId, isMaster);
+
+            return RedirectToAction("Details", new {projectId = projectId});
         }
     }
 }

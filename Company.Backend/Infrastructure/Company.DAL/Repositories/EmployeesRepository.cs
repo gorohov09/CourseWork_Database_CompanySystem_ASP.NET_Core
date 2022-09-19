@@ -29,8 +29,14 @@ namespace Company.DAL.Repositories
         }
             
 
-        public async Task<IEnumerable<EmployeeEntity>> GetEmployees() =>
-            await _context.Employees.Include(P => P.EmployeeProjects).ToListAsync();
+        public async Task<IEnumerable<EmployeeEntity>> GetEmployees(int[] ids = null)
+        {
+            if (ids == null)
+                return await _context.Employees.Include(p => p.EmployeeProjects).ToListAsync();
+            else
+                return await _context.Employees.Where(e => !ids.Contains(e.Id)).Include(p => p.EmployeeProjects).ToListAsync();
+        }
+            
 
         public async Task<EmployeeEntity> GetMasterEmployeeByProject(int projectId)
         {

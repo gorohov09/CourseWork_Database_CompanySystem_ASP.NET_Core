@@ -36,8 +36,8 @@ else
     </thead>
     <tbody>
 @foreach (var item in Model.Projects) {
-        <tr class="trProject" style="cursor: pointer;" onclick=@string.Format("window.location.href='/Projects/Details?projectId={0}'; return false", item.Id)>
-            <td>
+        <tr class="trProject">
+            <td style="cursor: pointer;" onclick=@string.Format("window.location.href='/Projects/Details?projectId={0}'; return false", item.Id)>
                 @Html.DisplayFor(modelItem => item.Id)
             </td>
             <td>

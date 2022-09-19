@@ -56,7 +56,51 @@ namespace Company.DAL
                             IsMaster= true,
                         },
                     }
+                },
+                new EmployeeEntity
+                {
+                    LastName = "Аверина",
+                    FirstName = "Софья",
+                    Patronymic = "Андреевна",
+                    Birthday = new DateTime(2002, 5, 3),
+                    Email = "averina@yandex.ru",
+                    PhoneNumber = 89674563921,
+                    Salary = 15000,
+                },
+                new EmployeeEntity
+                {
+                    LastName = "Казачина",
+                    FirstName = "Алексей",
+                    Patronymic = "Дмитриевич",
+                    Birthday = new DateTime(2003, 1, 13),
+                    Email = "kazak@yandex.ru",
+                    PhoneNumber = 89563452389,
+                    Salary = 50000,
                 }
+            };
+
+        public static IEnumerable<ProjectEntity> ProjectsEntities =>
+            new List<ProjectEntity>
+            {
+                new ProjectEntity
+                {
+                    Title = "Решить баг в системе",
+                    Description = "Необходимо решить баг в системе",
+                    Status = Status.OPEN,
+                },
+                new ProjectEntity
+                {
+                    Title = "Посчитать задачу",
+                    Description = "Необходимо решить баг в системе",
+                    Status = Status.OPEN,
+                },
+                new ProjectEntity
+                {
+                    Title = "Выйграть игру с департаментом",
+                    Description = "Необходимо решить баг в системе",
+                    Status = Status.OPEN,
+                },
+
             };
     }
 }
