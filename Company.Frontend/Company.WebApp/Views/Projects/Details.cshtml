@@ -10,6 +10,7 @@
 @if (Model.EmployeeMaster == null)
 {
     <h2>Главный сотрудник не назначен</h2>
+    <a asp-controller="Projects" asp-action="AssigneToEmployee" asp-route-projectId=@Model.Id asp-route-isMaster=@true>Назначить главного сотрудника</a>
 }
 else
 {

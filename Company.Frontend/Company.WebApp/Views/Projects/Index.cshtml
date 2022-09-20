@@ -50,7 +50,7 @@ else
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
             <td>
-                    @if (item.EmployeeMaster == null)
+                    @*@if (item.EmployeeMaster == null)
                     {
                         <form asp-controller="Projects" asp-action="AssigneEmployee" asp-route-projectId=@item.Id asp-route-isMaster=@true >
                             <select asp-for="EmployeeId" 
@@ -65,7 +65,7 @@ else
                     else
                     {
                         <a asp-controller="Employees" asp-action="Details" asp-route-empId="@item.EmployeeMaster.Id">@Html.DisplayFor(modelItem => item.EmployeeMaster.LastName) @Html.DisplayFor(modelItem => item.EmployeeMaster.FirstName)</a>
-                    }
+                    }*@
             </td>
         </tr>
 }

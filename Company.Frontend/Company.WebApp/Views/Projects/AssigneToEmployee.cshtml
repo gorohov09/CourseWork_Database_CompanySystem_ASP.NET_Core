@@ -1,4 +1,4 @@
-﻿@model IEnumerable<EmployeeViewModel>
+﻿@model AssigneToEmployeeViewModel
 
 @{
     ViewData["Title"] = "Сотрудники";
@@ -6,29 +6,35 @@
 
 <h2>Список сотрудников</h2>
 
-<table class="table">
+@if (Model.Employees.Count == 0)
+{
+    
+}
+else
+{
+    <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
+                @Html.DisplayNameFor(model => model.Employees[0].Id)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.LastName)
+                @Html.DisplayNameFor(model => model.Employees[0].LastName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FirstName)
+                @Html.DisplayNameFor(model => model.Employees[0].FirstName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Patronymic)
+                @Html.DisplayNameFor(model => model.Employees[0].Patronymic)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CountProjects)
+                @Html.DisplayNameFor(model => model.Employees[0].CountProjects)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.Employees) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Id)
@@ -49,13 +55,20 @@
 }
     </tbody>
 </table>
+}
 
-<h3>Выберите Id сотрудника, которого хотите назначить на проект и введите в форму</h3>
-<form method="post" asp-controller="Projects" asp-action="AssigneToEmployee" asp-route-projectId=@ViewBag.ProjectId>
+
+@if (Model.IsMaster)
+{
+    <h3>Выберите Id сотрудника, которого хотите назначить ГЛАВНЫМ на проект и введите в форму</h3>
+}
+else
+{
+   <h3>Выберите Id сотрудника, которого хотите назначить на проект и введите в форму</h3> 
+}
+
+<form method="post" asp-controller="Projects" asp-action="AssigneToEmployee" asp-route-projectId=@ViewBag.ProjectId asp-route-isMaster=@Model.IsMaster>
     <label>Id сотрудника:</label><br />
     <input type="number" name="employeeId" /><br />
-    <label>Назначить главным на проекте?</label> <br />
-    <input name="isMaster" type="checkbox" value="true" />
     <input type="submit" value="Отправить" />
-    <input name="isMaster" type="hidden" value="false" /> 
 </form>
