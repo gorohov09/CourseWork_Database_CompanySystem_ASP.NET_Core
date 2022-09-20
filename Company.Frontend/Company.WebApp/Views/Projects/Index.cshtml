@@ -36,8 +36,8 @@ else
     </thead>
     <tbody>
 @foreach (var item in Model.Projects) {
-        <tr class="trProject">
-            <td style="cursor: pointer;" onclick=@string.Format("window.location.href='/Projects/Details?projectId={0}'; return false", item.Id)>
+        <tr class="trProject" style="cursor: pointer;" onclick=@string.Format("window.location.href='/Projects/Details?projectId={0}'; return false", item.Id)>
+            <td>
                 @Html.DisplayFor(modelItem => item.Id)
             </td>
             <td>
@@ -50,6 +50,7 @@ else
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
             <td>
+                    //Тут сделать кол-во сотрудников на проекте
                     @*@if (item.EmployeeMaster == null)
                     {
                         <form asp-controller="Projects" asp-action="AssigneEmployee" asp-route-projectId=@item.Id asp-route-isMaster=@true >
