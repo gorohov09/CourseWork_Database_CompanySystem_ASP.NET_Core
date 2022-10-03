@@ -35,21 +35,7 @@ namespace Company.Application.Services
             List<ProjectVm> projectsVmList = new List<ProjectVm>();
             foreach (var projectEntity in projectsEntity)
             {
-                var employeeMasterEntity = await _employeesRepository.GetMasterEmployeeByProject(projectEntity.Id);
-
-                var employeeMasterVm = new EmployeeMasterVm();
-                if (employeeMasterEntity == null)
-                {
-                    employeeMasterVm = null;
-                }
-                else
-                {
-                    employeeMasterVm.Id = employeeMasterEntity.Id;
-                    employeeMasterVm.LastName = employeeMasterEntity.LastName;
-                    employeeMasterVm.FirstName = employeeMasterEntity.FirstName;
-                    employeeMasterVm.PhoneNumber = employeeMasterEntity.PhoneNumber;
-                    employeeMasterVm.Email = employeeMasterEntity.Email;
-                }
+                var countEmployees = await _employeesRepository.GetCountEmployeesFromProject(projectEntity.Id);
 
                 var projectVm = new ProjectVm
                 {
@@ -57,7 +43,7 @@ namespace Company.Application.Services
                     Title = projectEntity.Title,
                     Description = projectEntity.Description,
                     Status = projectEntity.GetStatusFromProject(),
-                    EmployeeMaster = employeeMasterVm
+                    CountEmployees = countEmployees,
                 };
 
                 projectsVmList.Add(projectVm);

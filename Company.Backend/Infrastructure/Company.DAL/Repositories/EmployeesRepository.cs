@@ -22,6 +22,13 @@ namespace Company.DAL.Repositories
             return employees;
         }
 
+        public async Task<int> GetCountEmployeesFromProject(int projectId)
+        {
+            var countEmployees = await _context.EmployeesProjects.Where(ep => ep.ProjectId == projectId)
+                .CountAsync();
+            return countEmployees;
+        }
+
         public async Task<EmployeeEntity?> GetEmployeeById(int employeeId)
         {
             var employeeEntity = await _context.Employees.FirstOrDefaultAsync(p => p.Id == employeeId);

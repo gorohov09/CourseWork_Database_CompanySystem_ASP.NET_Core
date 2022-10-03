@@ -10,6 +10,6 @@
 
         public string Status { get; set; }
 
-        public EmployeeMasterDTO EmployeeMaster { get; set; }
+        public int CountEmployees { get; set; }
     }
 }

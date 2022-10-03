@@ -10,9 +10,6 @@
 
         public string Status { get; set; }
 
-        /// <summary>
-        /// Главный сотрудник на проекте
-        /// </summary>
-        public EmployeeMasterVm EmployeeMaster { get; set; }
+        public int CountEmployees { get; set; }
     }
 }

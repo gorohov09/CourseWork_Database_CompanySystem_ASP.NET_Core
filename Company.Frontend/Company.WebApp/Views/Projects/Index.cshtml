@@ -28,7 +28,7 @@ else
                 @Html.DisplayNameFor(model => model.Projects[0].Status)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Projects[0].EmployeeMaster)
+                @Html.DisplayNameFor(model => model.Projects[0].CountEmployees)
             </th>
 
             <th></th>
@@ -50,23 +50,7 @@ else
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
             <td>
-                    //Тут сделать кол-во сотрудников на проекте
-                    @*@if (item.EmployeeMaster == null)
-                    {
-                        <form asp-controller="Projects" asp-action="AssigneEmployee" asp-route-projectId=@item.Id asp-route-isMaster=@true >
-                            <select asp-for="EmployeeId" 
-                                asp-items="@Model.Employees">
-                                <option>Выберете сотрудника</option>
-                             </select>
-                            <p>
-                            <input type="submit" value="Сохранить" />
-                            </p>
-                        </form> 
-                    }
-                    else
-                    {
-                        <a asp-controller="Employees" asp-action="Details" asp-route-empId="@item.EmployeeMaster.Id">@Html.DisplayFor(modelItem => item.EmployeeMaster.LastName) @Html.DisplayFor(modelItem => item.EmployeeMaster.FirstName)</a>
-                    }*@
+                @Html.DisplayFor(modelItem => item.CountEmployees)
             </td>
         </tr>
 }

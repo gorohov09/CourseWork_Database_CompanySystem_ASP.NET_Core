@@ -25,15 +25,9 @@ namespace Company.WebApp.Controllers
         public async Task<IActionResult> Index()
         {
             var projects = _mapper.Map<IEnumerable<ProjectViewModel>>(await _projectsClient.GetProjects());
-            var employees = _mapper.Map<IEnumerable<EmployeeViewModel>>(await _employeesClient.GetEmployees());
             var result = new MainProjectViewModel
             {
                 Projects = projects.ToList(),
-                Employees = employees.Select(x => new SelectListItem
-                {
-                    Value = $"{x.Id}",
-                    Text = $"{x.LastName} {x.FirstName} {x.CountProjects}"
-                }).ToList()
             };
 
             return View(result);

@@ -16,7 +16,7 @@ namespace Company.WebApp.Models
         [Display(Name = "Статус")]
         public string Status { get; set; }
 
-        [Display(Name = "Главный сотрудник")]
-        public EmployeeMasterViewModel EmployeeMaster { get; set; }
+        [Display(Name = "Колличество сотрудников")]
+        public int CountEmployees { get; set; }
     }
 }
