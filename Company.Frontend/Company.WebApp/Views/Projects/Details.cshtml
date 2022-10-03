@@ -29,7 +29,13 @@ else
 {
     @foreach (var e in Model.Employees)
 {
-    <h3><a asp-controller="Employees" asp-action="Details" asp-route-empId=@e.Id>@e.LastName @e.FirstName @e.Email @e.PhoneNumber</a></h3>
+    <h3>
+        <a asp-controller="Employees" asp-action="Details" asp-route-empId=@e.Id>@e.LastName @e.FirstName @e.Email @e.PhoneNumber
+        </a>
+        <form asp-controller="Projects" asp-action="UnassigneToEmployee" asp-route-projectId="@Model.Id" asp-route-employeeId="@e.Id">
+            <input type="submit" value="Снять с проекта" class="btn btn-sm btn-danger" />
+        </form>
+    </h3>
 }
     <a asp-controller="Projects" asp-action="AssigneToEmployee" asp-route-projectId=@Model.Id>Назначить сотрудника</a>
 }

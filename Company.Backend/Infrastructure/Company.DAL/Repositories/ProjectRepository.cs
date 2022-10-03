@@ -56,5 +56,18 @@ namespace Company.DAL.Repositories
             var projectEntity = await _context.Projects.FirstOrDefaultAsync(p => p.Id == projectId);
             return projectEntity;
         }
+
+        public async Task<bool> UnassigneProjectToEmployee(int employeeId, int projectId)
+        {
+            var employeeProjectEntity = await _context.EmployeesProjects
+                .FirstOrDefaultAsync(ep => ep.EmployeeId == employeeId && ep.ProjectId == projectId);
+
+            if (employeeProjectEntity is null)
+                return false;
+
+            _context.EmployeesProjects.Remove(employeeProjectEntity);
+
+            return (await _context.SaveChangesAsync() > 0);
+        }
     }
 }

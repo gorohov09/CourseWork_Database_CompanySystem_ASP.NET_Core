@@ -42,5 +42,12 @@ namespace Company.WebAPI.Controllers
             var result = await _projectsService.AssigneProjectToEmployee(model.EmployeeId, model.ProjectId, model.IsMaster);
             return Ok(result);
         }
+
+        [HttpPost("unassigneToEmployee")]
+        public async Task<IActionResult> UnassigneToEmployee([FromBody] UnassigneProjectToEmployeeDTO model)
+        {
+            var result = await _projectsService.UnassigneProjectToEmployee(model.EmployeeId, model.ProjectId);
+            return Ok(result);
+        }
     }
 }

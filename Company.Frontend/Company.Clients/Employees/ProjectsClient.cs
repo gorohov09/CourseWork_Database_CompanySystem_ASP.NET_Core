@@ -41,5 +41,22 @@ namespace Company.Clients.Employees
             var projectsDTO = await GetAsync<IEnumerable<ProjectDTO>>("all");
             return projectsDTO;
         }
+
+        public async Task<bool> UnassigneProjectToEmployee(int projectId, int employeeId)
+        {
+            var dtoModel = new UnassigneProjectToEmployeeDTO
+            {
+                ProjectId = projectId,
+                EmployeeId = employeeId,
+            };
+
+            var response = await PostAsync("unassigneToEmployee", dtoModel);
+            var success = response.EnsureSuccessStatusCode()
+                .Content
+                .ReadFromJsonAsync<bool>()
+                .Result;
+
+            return success;
+        }
     }
 }

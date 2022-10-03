@@ -101,5 +101,12 @@ namespace Company.Application.Services
 
             return projectDetailsVm;
         }
+
+        public async Task<bool> UnassigneProjectToEmployee(int employeeId, int projectId)
+        {
+            var result = await _projectRepository.UnassigneProjectToEmployee(employeeId, projectId);
+
+            return result;
+        }
     }
 }

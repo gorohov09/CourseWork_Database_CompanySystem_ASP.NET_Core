@@ -9,5 +9,7 @@ namespace Company.Clients.Interfaces
         Task<ProjectDetailsDTO> GetProjectById(int projectId);
 
         Task<bool> AssigneProjectToEmployee(int projectId, int employeeId, bool isMaster = false);
+
+        Task<bool> UnassigneProjectToEmployee(int projectId, int employeeId);
     }
 }

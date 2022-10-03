@@ -70,5 +70,13 @@ namespace Company.WebApp.Controllers
 
             return RedirectToAction("Details", new {projectId = projectId});
         }
+
+        [HttpPost]
+        public async Task<IActionResult> UnassigneToEmployee(int projectId, int employeeId)
+        {
+            var result = await _projectsClient.UnassigneProjectToEmployee(projectId, employeeId);
+
+            return RedirectToAction("Details", new { projectId = projectId });
+        }
     }
 }

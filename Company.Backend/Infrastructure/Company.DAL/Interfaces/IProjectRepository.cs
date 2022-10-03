@@ -12,6 +12,8 @@ namespace Company.DAL.Interfaces
 
         Task<bool> AssigneProjectToEmployee(int employeeId, int projectId, bool isMaster = false);
 
+        Task<bool> UnassigneProjectToEmployee(int employeeId, int projectId);
+
         Task<ProjectEntity> GetProjectById(int projectId);
     }
 }
