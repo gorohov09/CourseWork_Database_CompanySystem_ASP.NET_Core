@@ -31,6 +31,17 @@ services.AddTransient<IDbInitializer, DbInitializer>();
 services.AddScoped<IEmployeesRepository, EmployeesRepository>();
 services.AddScoped<IProjectRepository, ProjectRepository>();
 
+services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllHeaders",
+        builder =>
+        {
+            builder.AllowAnyOrigin()
+                   .AllowAnyHeader()
+                   .AllowAnyMethod();
+        });
+});
+
 var app = builder.Build();
 
 //Initialize Data
@@ -46,6 +57,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("AllowAllHeaders");
 
 app.UseAuthorization();
 
