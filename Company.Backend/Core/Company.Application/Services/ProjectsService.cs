@@ -1,6 +1,7 @@
 ﻿using Company.Application.Interfaces;
 using Company.Application.ViewModel;
 using Company.DAL.Interfaces;
+using Company.Domain.Entities;
 
 namespace Company.Application.Services
 {
@@ -25,6 +26,26 @@ namespace Company.Application.Services
                 return false;
 
             var result = await _projectRepository.AssigneProjectToEmployee(employeeEntity.Id, projectEntity.Id, isMaster);
+
+            return result;
+        }
+
+        public async Task<bool> ChangeStatusToProject(int projectId, string oldStatus, string newStatus)
+        {
+            var projectEntity = await _projectRepository.GetProjectById(projectId);
+
+            if (projectEntity == null)
+                return false;
+
+            if (projectEntity.IsSameStatus(newStatus))
+                return true;
+
+            var status = projectEntity.GetStatus(newStatus);
+
+            if (status == Status.UNDEFINED)
+                return false;
+
+            var result = await _projectRepository.ChangeStatusToProject(projectEntity, status);
 
             return result;
         }

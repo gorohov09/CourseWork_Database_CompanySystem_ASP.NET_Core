@@ -49,5 +49,12 @@ namespace Company.WebAPI.Controllers
             var result = await _projectsService.UnassigneProjectToEmployee(model.EmployeeId, model.ProjectId);
             return Ok(result);
         }
+
+        [HttpPut("changeStatus")]
+        public async Task<IActionResult> ChangeStatusById([FromBody] ChangeStatusDTO model)
+        {
+            var result = await _projectsService.ChangeStatusToProject(model.ProjectId, model.OldStatus, model.NewStatus);
+            return Ok(result);
+        }
     }
 }

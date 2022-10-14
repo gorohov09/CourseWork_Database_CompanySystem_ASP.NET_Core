@@ -69,5 +69,11 @@ namespace Company.DAL.Repositories
 
             return (await _context.SaveChangesAsync() > 0);
         }
+
+        public async Task<bool> ChangeStatusToProject(ProjectEntity projectEntity, Status newStatus)
+        {
+            projectEntity.Status = newStatus;
+            return (await _context.SaveChangesAsync() > 0);
+        }
     }
 }

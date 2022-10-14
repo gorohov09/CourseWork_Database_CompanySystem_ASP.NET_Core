@@ -11,5 +11,7 @@ namespace Company.Application.Interfaces
         Task<bool> AssigneProjectToEmployee(int employeeId, int projectId, bool isMaster = false);
 
         Task<bool> UnassigneProjectToEmployee(int employeeId, int projectId);
+
+        Task<bool> ChangeStatusToProject(int projectId, string oldStatus, string newStatus);
     }
 }
