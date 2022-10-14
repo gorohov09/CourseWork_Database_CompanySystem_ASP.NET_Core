@@ -78,5 +78,28 @@ namespace Company.WebApp.Controllers
 
             return RedirectToAction("Details", new { projectId = projectId });
         }
+
+        [HttpGet]
+        public async Task<IActionResult> ChangeStatus(int projectId)
+        {
+            var projectDto = await _projectsClient.GetProjectById(projectId);
+
+            var model = new ChangeStatusViewModel
+            {
+                ProjectId = projectId,
+                OldStatus = projectDto.Status,
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangeStatus(ChangeStatusViewModel model)
+        {
+            //var result = await _projectsClient.UnassigneProjectToEmployee(projectId, employeeId);
+
+            //return RedirectToAction("Details", new { projectId = projectId });
+            return null;
+        }
     }
 }
