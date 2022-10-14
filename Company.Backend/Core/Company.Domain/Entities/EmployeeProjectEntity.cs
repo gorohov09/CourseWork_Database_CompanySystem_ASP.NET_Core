@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Company.Domain.Entities
+﻿namespace Company.Domain.Entities
 {
     public class EmployeeProjectEntity
     {
@@ -14,6 +8,9 @@ namespace Company.Domain.Entities
         public int ProjectId { get; set; }
         public ProjectEntity Project { get; set; }
 
-
+        /// <summary>
+        /// Является ли сотрудник, главным на проекте
+        /// </summary>
+        public bool IsMaster { get; set; }
     }
 }

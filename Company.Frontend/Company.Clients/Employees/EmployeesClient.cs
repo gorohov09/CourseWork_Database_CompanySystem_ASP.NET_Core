@@ -23,6 +23,10 @@ namespace Company.Clients.Employees
             return employeesDTO;
         }
 
-
+        public async Task<IEnumerable<EmployeeDTO>> GetEmployeesNotProject(int projectId)
+        {
+            var employeesDTO = await GetAsync<IEnumerable<EmployeeDTO>>($"notProject/{projectId}");
+            return employeesDTO;
+        }
     }
 }

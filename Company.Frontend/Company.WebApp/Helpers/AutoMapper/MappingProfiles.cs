@@ -11,6 +11,8 @@ namespace Company.WebApp.Helpers.AutoMapper
             CreateMap<EmployeeDTO, EmployeeViewModel>().ReverseMap();
             CreateMap<EmployeeDetailsDTO, EmployeeDetailsViewModel>().ReverseMap();
             CreateMap<ProjectDTO, ProjectViewModel>().ReverseMap();
+            CreateMap<EmployeeMasterDTO, EmployeeMasterViewModel>().ReverseMap();
+            CreateMap<ProjectDetailsDTO, ProjectDetailsViewModel>().ReverseMap();
         }
     }
 }

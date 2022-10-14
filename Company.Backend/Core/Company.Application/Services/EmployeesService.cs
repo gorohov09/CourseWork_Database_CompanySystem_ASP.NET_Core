@@ -35,17 +35,41 @@ namespace Company.Application.Services
                 Email = employeeEntity.Email,
                 PhoneNumber = employeeEntity.PhoneNumber,
                 Salary = employeeEntity.Salary,
-                Age = CalculateAgeEmployee(employeeEntity.Birthday),
+                Age = employeeEntity.CalculateAgeEmployee(),
                 Projects = projectsEntity.Select(p => new ProjectVm
                 {
                     Id = p.Id,
                     Title = p.Title,
                     Description = p.Description,
-                    Status = GetStatusFromProject(p.Status)
+                    Status = p.GetStatusFromProject()
                 }).ToList(),
             };
             
             return employeesVm;
+        }
+
+        public async Task<IEnumerable<EmployeeVm>> GetEmployeeNotThisProject(int projectId)
+        {
+            var employeesByProjectEntity = await _employeesRepository.GetAllEmployeesByProject(projectId);
+            var idsEmployees = employeesByProjectEntity.Select(p => p.Id).ToArray();
+
+            var employees = await _employeesRepository.GetEmployees(idsEmployees);
+
+            var employeesVm = employees.Select(x => new EmployeeVm
+            {
+                Id = x.Id,
+                LastName = x.LastName,
+                FirstName = x.FirstName,
+                Patronymic = x.Patronymic,
+                Birthday = x.Birthday.ToShortDateString(),
+                Email = x.Email,
+                PhoneNumber = x.PhoneNumber,
+                Salary = x.Salary,
+                Age = x.CalculateAgeEmployee(),
+                CountProjects = x.EmployeeProjects.Count(),
+            });
+            return employeesVm;
+
         }
 
         public async Task<IEnumerable<EmployeeVm>> GetEmployeeVm()
@@ -61,30 +85,12 @@ namespace Company.Application.Services
                 Email = x.Email,
                 PhoneNumber = x.PhoneNumber,
                 Salary = x.Salary,
-                Age = CalculateAgeEmployee(x.Birthday),
+                Age = x.CalculateAgeEmployee(),
                 CountProjects = x.EmployeeProjects.Count(),
             });
             return employeesVm;
         }
 
-        private int CalculateAgeEmployee(DateTime date)
-        {
-            var age = DateTime.Now.Year - date.Year;
-            if (DateTime.Now.DayOfYear < date.DayOfYear) //на случай, если день рождения уже прошёл
-                age++;
-            return age;
-        }
-
-        private string GetStatusFromProject(Status status)
-        {
-            if (status == Status.OPEN)
-                return "ОТКРЫТО";
-            else if (status == Status.IN_PROGRESS)
-                return "В ПРОГРЕССЕ";
-            else if (status == Status.CLOSED)
-                return "ЗАКРЫТО";
-            else
-                return "НЕИЗВЕСТНЫЙ СТАТУС";
-        }
+        
     }
 }

@@ -4,6 +4,7 @@ using Company.DAL.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Company.DAL.Migrations
 {
     [DbContext(typeof(CompanyContext))]
-    partial class CompanyContextModelSnapshot : ModelSnapshot
+    [Migration("20220910223711_Method")]
+    partial class Method
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -66,9 +68,6 @@ namespace Company.DAL.Migrations
 
                     b.Property<int>("ProjectId")
                         .HasColumnType("int");
-
-                    b.Property<bool>("IsMaster")
-                        .HasColumnType("bit");
 
                     b.HasKey("EmployeeId", "ProjectId");
 

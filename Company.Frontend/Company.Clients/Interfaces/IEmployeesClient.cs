@@ -7,5 +7,7 @@ namespace Company.Clients.Interfaces
         Task<IEnumerable<EmployeeDTO>> GetEmployees();
 
         Task<EmployeeDetailsDTO> GetEmployeeDetailsById(int empId);
+
+        Task<IEnumerable<EmployeeDTO>> GetEmployeesNotProject(int projectId);
     }
 }

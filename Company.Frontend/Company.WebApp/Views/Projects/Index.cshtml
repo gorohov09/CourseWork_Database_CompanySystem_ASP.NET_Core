@@ -1,0 +1,63 @@
+﻿@model MainProjectViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Список проектов</h2>
+
+@if (Model.Projects.Count() == 0)
+{
+    <p>Никаких проектов нет</p>
+}
+else
+{
+    <table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Projects[0].Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Projects[0].Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Projects[0].Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Projects[0].Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Projects[0].CountEmployees)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Projects) {
+        <tr class="trProject" style="cursor: pointer;" onclick=@string.Format("window.location.href='/Projects/Details?projectId={0}'; return false", item.Id)>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CountEmployees)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+}
+
+
+
+

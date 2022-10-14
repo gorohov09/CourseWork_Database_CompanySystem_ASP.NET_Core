@@ -24,11 +24,23 @@ services.AddDbContext<CompanyContext>(options =>
 
 //Services
 services.AddScoped<IEmployeesService, EmployeesService>();
+services.AddScoped<IProjectsService, ProjectsService>();
 services.AddTransient<IDbInitializer, DbInitializer>();
 
 //Repository
 services.AddScoped<IEmployeesRepository, EmployeesRepository>();
 services.AddScoped<IProjectRepository, ProjectRepository>();
+
+services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllHeaders",
+        builder =>
+        {
+            builder.AllowAnyOrigin()
+                   .AllowAnyHeader()
+                   .AllowAnyMethod();
+        });
+});
 
 var app = builder.Build();
 
@@ -36,7 +48,7 @@ var app = builder.Build();
 await using (var scope = app.Services.CreateAsyncScope())
 {
     var db_initializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
-    await db_initializer.InitializeAsync(false);
+    await db_initializer.InitializeAsync(true);
 }
 
 // Configure the HTTP request pipeline.
@@ -45,6 +57,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("AllowAllHeaders");
 
 app.UseAuthorization();
 

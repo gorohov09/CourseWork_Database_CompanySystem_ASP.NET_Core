@@ -24,5 +24,12 @@ namespace Company.Clients.Base
                 .ReadFromJsonAsync<T>()
                 .ConfigureAwait(false);
         }
+
+        protected async Task<HttpResponseMessage?> PostAsync<T>(string url, T value, CancellationToken cancel = default)
+        {
+            var address = $"{Address}/{url}";
+            var response = await HttpClient.PostAsJsonAsync(address, value, cancel).ConfigureAwait(false);
+            return response.EnsureSuccessStatusCode();
+        }
     }
 }

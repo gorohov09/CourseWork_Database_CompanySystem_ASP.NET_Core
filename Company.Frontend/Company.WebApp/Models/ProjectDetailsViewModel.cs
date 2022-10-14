@@ -2,12 +2,12 @@
 
 namespace Company.WebApp.Models
 {
-    public class ProjectViewModel
+    public class ProjectDetailsViewModel
     {
         [Display(Name = "Id")]
         public int Id { get; set; }
 
-        [Display(Name = "Заголовок")]
+        [Display(Name = "Тема")]
         public string Title { get; set; }
 
         [Display(Name = "Описание")]
@@ -16,7 +16,10 @@ namespace Company.WebApp.Models
         [Display(Name = "Статус")]
         public string Status { get; set; }
 
-        [Display(Name = "Колличество сотрудников")]
-        public int CountEmployees { get; set; }
+        [Display(Name = "Главный по проекту")]
+        public EmployeeMasterViewModel EmployeeMaster { get; set; }
+
+        [Display(Name = "Другие сотрудники, выполняющие проект")]
+        public IEnumerable<EmployeeViewModel> Employees { get; set; }
     }
 }
