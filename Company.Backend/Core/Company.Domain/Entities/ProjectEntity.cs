@@ -32,18 +32,6 @@ namespace Company.Domain.Entities
                 return "НЕИЗВЕСТНЫЙ СТАТУС";
         }
 
-        public Status GetStatus(string status)
-        {
-            if (status == "ОТКРЫТО")
-                return Status.OPEN;
-            else if (status == "В ПРОГРЕССЕ")
-                return Status.IN_PROGRESS;
-            else if (status == "ЗАКРЫТО")
-                return Status.CLOSED;
-            else
-                return Status.UNDEFINED;
-        }
-
         public bool IsSameStatus(string status) => GetStatusFromProject() == status ? true : false;
         
     }

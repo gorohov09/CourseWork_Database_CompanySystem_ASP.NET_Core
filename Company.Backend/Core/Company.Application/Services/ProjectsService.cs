@@ -40,7 +40,7 @@ namespace Company.Application.Services
             if (projectEntity.IsSameStatus(newStatus))
                 return true;
 
-            var status = projectEntity.GetStatus(newStatus);
+            var status = GetStatus(newStatus);
 
             if (status == Status.UNDEFINED)
                 return false;
@@ -128,6 +128,18 @@ namespace Company.Application.Services
             var result = await _projectRepository.UnassigneProjectToEmployee(employeeId, projectId);
 
             return result;
+        }
+
+        private Status GetStatus(string status)
+        {
+            if (status == "ОТКРЫТО")
+                return Status.OPEN;
+            else if (status == "В ПРОГРЕССЕ")
+                return Status.IN_PROGRESS;
+            else if (status == "ЗАКРЫТО")
+                return Status.CLOSED;
+            else
+                return Status.UNDEFINED;
         }
     }
 }
