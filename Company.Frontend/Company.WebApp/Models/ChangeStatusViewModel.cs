@@ -7,9 +7,6 @@ namespace Company.WebApp.Models
     {
         public int ProjectId { get; set; }
 
-        [HiddenInput(DisplayValue = false)]
-        public string OldStatus { get; set; }
-
         [Display(Name = "Новый статус")]
         public string NewStatus { get; set; }
     }

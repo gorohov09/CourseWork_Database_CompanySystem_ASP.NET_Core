@@ -30,7 +30,7 @@ namespace Company.Application.Services
             return result;
         }
 
-        public async Task<bool> ChangeStatusToProject(int projectId, string oldStatus, string newStatus)
+        public async Task<bool> ChangeStatusToProject(int projectId, string newStatus)
         {
             var projectEntity = await _projectRepository.GetProjectById(projectId);
 

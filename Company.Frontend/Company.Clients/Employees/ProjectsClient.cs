@@ -22,10 +22,25 @@ namespace Company.Clients.Employees
             };
 
             var response = await PostAsync("assigneToEmployee", dtoModel);
-            var success = response.EnsureSuccessStatusCode()
+            var success = await response!.EnsureSuccessStatusCode()
                 .Content
-                .ReadFromJsonAsync<bool>()
-                .Result;
+                .ReadFromJsonAsync<bool>();
+
+            return success;
+        }
+
+        public async Task<bool> ChangeStatusProject(int projectId, string newStatus)
+        {
+            var dtoModel = new ChangeStatusDTO
+            {
+                ProjectId = projectId,
+                NewStatus = newStatus
+            };
+
+            var response = await PutAsync("changeStatus", dtoModel);
+            var success = await response!.EnsureSuccessStatusCode()
+                .Content
+                .ReadFromJsonAsync<bool>();
 
             return success;
         }

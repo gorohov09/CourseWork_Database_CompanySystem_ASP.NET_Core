@@ -87,7 +87,6 @@ namespace Company.WebApp.Controllers
             var model = new ChangeStatusViewModel
             {
                 ProjectId = projectId,
-                OldStatus = projectDto.Status,
             };
 
             return View(model);
@@ -96,10 +95,15 @@ namespace Company.WebApp.Controllers
         [HttpPost]
         public async Task<IActionResult> ChangeStatus(ChangeStatusViewModel model)
         {
-            //var result = await _projectsClient.UnassigneProjectToEmployee(projectId, employeeId);
+            var result = await _projectsClient.ChangeStatusProject(model.ProjectId, model.NewStatus);
 
-            //return RedirectToAction("Details", new { projectId = projectId });
-            return null;
+            if (!result)
+            {
+                ModelState.AddModelError("", "Не удалось сохранить данные! Возможно неверно написан статус задачи");
+                return View(model);
+            }
+
+            return RedirectToAction("Details", new { projectId = model.ProjectId });
         }
     }
 }

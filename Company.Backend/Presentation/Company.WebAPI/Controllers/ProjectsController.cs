@@ -53,7 +53,7 @@ namespace Company.WebAPI.Controllers
         [HttpPut("changeStatus")]
         public async Task<IActionResult> ChangeStatusById([FromBody] ChangeStatusDTO model)
         {
-            var result = await _projectsService.ChangeStatusToProject(model.ProjectId, model.OldStatus, model.NewStatus);
+            var result = await _projectsService.ChangeStatusToProject(model.ProjectId, model.NewStatus);
             return Ok(result);
         }
     }
