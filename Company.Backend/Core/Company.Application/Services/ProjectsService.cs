@@ -1,6 +1,7 @@
 ﻿using Company.Application.Interfaces;
 using Company.Application.ViewModel;
 using Company.DAL.Interfaces;
+using Company.Domain.Entities;
 
 namespace Company.Application.Services
 {
@@ -25,6 +26,26 @@ namespace Company.Application.Services
                 return false;
 
             var result = await _projectRepository.AssigneProjectToEmployee(employeeEntity.Id, projectEntity.Id, isMaster);
+
+            return result;
+        }
+
+        public async Task<bool> ChangeStatusToProject(int projectId, string newStatus)
+        {
+            var projectEntity = await _projectRepository.GetProjectById(projectId);
+
+            if (projectEntity == null)
+                return false;
+
+            if (projectEntity.IsSameStatus(newStatus))
+                return true;
+
+            var status = GetStatus(newStatus);
+
+            if (status == Status.UNDEFINED)
+                return false;
+
+            var result = await _projectRepository.ChangeStatusToProject(projectEntity, status);
 
             return result;
         }
@@ -107,6 +128,18 @@ namespace Company.Application.Services
             var result = await _projectRepository.UnassigneProjectToEmployee(employeeId, projectId);
 
             return result;
+        }
+
+        private Status GetStatus(string status)
+        {
+            if (status == "ОТКРЫТО")
+                return Status.OPEN;
+            else if (status == "В ПРОГРЕССЕ")
+                return Status.IN_PROGRESS;
+            else if (status == "ЗАКРЫТО")
+                return Status.CLOSED;
+            else
+                return Status.UNDEFINED;
         }
     }
 }

@@ -78,5 +78,32 @@ namespace Company.WebApp.Controllers
 
             return RedirectToAction("Details", new { projectId = projectId });
         }
+
+        [HttpGet]
+        public async Task<IActionResult> ChangeStatus(int projectId)
+        {
+            var projectDto = await _projectsClient.GetProjectById(projectId);
+
+            var model = new ChangeStatusViewModel
+            {
+                ProjectId = projectId,
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangeStatus(ChangeStatusViewModel model)
+        {
+            var result = await _projectsClient.ChangeStatusProject(model.ProjectId, model.NewStatus);
+
+            if (!result)
+            {
+                ModelState.AddModelError("", "Не удалось сохранить данные! Возможно неверно написан статус задачи");
+                return View(model);
+            }
+
+            return RedirectToAction("Details", new { projectId = model.ProjectId });
+        }
     }
 }

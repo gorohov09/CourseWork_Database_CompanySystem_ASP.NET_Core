@@ -5,7 +5,8 @@
 }
 
 <h1>@Html.DisplayNameFor(model => model.Title): @Html.DisplayFor(model => model.Title)</h1>
-<h2>@Html.DisplayNameFor(model => model.Status): @Html.DisplayFor(model => model.Status)</h2>
+<a asp-action="ChangeStatus" asp-route-projectId="@Model.Id"><h2>@Html.DisplayNameFor(model => model.Status): @Html.DisplayFor(model => model.Status)</h2></a>
+
 
 @if (Model.EmployeeMaster == null)
 {

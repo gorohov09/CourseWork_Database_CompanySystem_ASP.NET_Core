@@ -6,7 +6,8 @@ namespace Company.Domain.Entities
     {
         OPEN,
         IN_PROGRESS,
-        CLOSED
+        CLOSED,
+        UNDEFINED
     }
 
     public class ProjectEntity : Entity
@@ -30,5 +31,8 @@ namespace Company.Domain.Entities
             else
                 return "НЕИЗВЕСТНЫЙ СТАТУС";
         }
+
+        public bool IsSameStatus(string status) => GetStatusFromProject() == status ? true : false;
+        
     }
 }
