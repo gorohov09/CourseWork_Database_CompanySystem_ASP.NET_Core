@@ -1,4 +1,5 @@
-﻿using Company.Application.ViewModel;
+﻿using Company.Application.DTO;
+using Company.Application.ViewModel;
 
 namespace Company.Application.Interfaces
 {
@@ -9,5 +10,7 @@ namespace Company.Application.Interfaces
         Task<EmployeeDetailsVm> GetEmployeeByIdVm(int employeeId);
 
         Task<IEnumerable<EmployeeVm>> GetEmployeeNotThisProject(int projectId);
+
+        Task<bool> CreateEmployee(EmployeeVm employeeVm);
     }
 }

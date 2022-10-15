@@ -14,6 +14,13 @@ namespace Company.DAL.Repositories
             _context = context;
         }
 
+        public async Task<EmployeeEntity> CreateEmployee(EmployeeEntity employeeEntity)
+        {
+            _context.Employees.Add(employeeEntity);
+            _context.SaveChanges();
+            return employeeEntity;
+        }
+
         public async Task<IEnumerable<EmployeeEntity>> GetAllEmployeesByProject(int projectId)
         {
             var employees = await _context.EmployeesProjects.Where(ep => ep.ProjectId == projectId)

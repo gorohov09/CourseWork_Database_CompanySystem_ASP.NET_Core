@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Company.Application.DTO;
 using Company.Application.Interfaces;
+using Company.Application.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -39,6 +40,14 @@ namespace Company.WebAPI.Controllers
         {
             var employeesDTO = _mapper.Map<IEnumerable<EmployeeDTO>>(await _employeesService.GetEmployeeNotThisProject(projectId));
             return Ok(employeesDTO);
+        }
+
+        [HttpPost("create")]
+        public async Task<IActionResult> Create(EmployeeDTO employeeDTO)
+        {
+            var employeeVm = _mapper.Map<EmployeeVm>(employeeDTO);
+            var result = await _employeesService.CreateEmployee(employeeVm);
+            return Ok(result);
         }
     }
 }
