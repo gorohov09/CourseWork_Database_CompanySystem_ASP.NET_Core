@@ -1,12 +1,11 @@
 ﻿@model Company.WebApp.Models.CreateEmployeeViewModel
 
 @{
-    ViewData["Title"] = "CreateEmployee";
+    ViewData["Title"] = "Создание сорудника";
 }
 
-<h1>CreateEmployee</h1>
+<h1>Создание нового сотрудника</h1>
 
-<h4>CreateEmployeeViewModel</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -32,6 +31,7 @@
                 <input asp-for="Birthday" class="form-control" />
                 <span asp-validation-for="Birthday" class="text-danger"></span>
             </div>
+            <br />
             <div class="form-group">
                 <label asp-for="PhoneNumber" class="control-label"></label>
                 <input asp-for="PhoneNumber" class="form-control" />
@@ -47,14 +47,15 @@
                 <input asp-for="Salary" class="form-control" />
                 <span asp-validation-for="Salary" class="text-danger"></span>
             </div>
+            <br />
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Сохранить" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
-
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Вернуться к списку</a>
 </div>
+<br />
 
