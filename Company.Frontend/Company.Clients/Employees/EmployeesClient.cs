@@ -1,6 +1,7 @@
 ﻿using Company.Application.DTO;
 using Company.Clients.Base;
 using Company.Clients.Interfaces;
+using System.Net.Http.Json;
 
 namespace Company.Clients.Employees
 {
@@ -27,6 +28,14 @@ namespace Company.Clients.Employees
         {
             var employeesDTO = await GetAsync<IEnumerable<EmployeeDTO>>($"notProject/{projectId}");
             return employeesDTO;
+        }
+
+        public async Task<bool> CreateEmployee(EmployeeDTO employeeDTO)
+        {
+            var result = await PostAsync("create", employeeDTO);
+            return await result!.EnsureSuccessStatusCode()
+                .Content
+                .ReadFromJsonAsync<bool>();
         }
     }
 }
