@@ -1,4 +1,5 @@
-﻿using Company.Application.Interfaces;
+﻿using Company.Application.DTO;
+using Company.Application.Interfaces;
 using Company.Application.ViewModel;
 using Company.DAL.Interfaces;
 using Company.Domain.Entities;
@@ -15,6 +16,26 @@ namespace Company.Application.Services
         {
             _employeesRepository = employeesRepository;
             _projectRepository = projectRepository;
+        }
+
+        public async Task<bool> CreateEmployee(EmployeeVm employeeVm)
+        {
+            if (employeeVm == null)
+                return false;
+
+            var employeeEntity = new EmployeeEntity
+            {
+                LastName = employeeVm.LastName,
+                FirstName = employeeVm.FirstName,
+                Patronymic = employeeVm.Patronymic,
+                Birthday = employeeVm.GetBirtday(),
+                PhoneNumber = employeeVm.PhoneNumber,
+                Email = employeeVm.Email,
+                Salary = employeeVm.Salary,
+            };
+
+            var employeeEntityResult = await _employeesRepository.CreateEmployee(employeeEntity);
+            return employeeEntityResult.Id > 0;
         }
 
         public async Task<EmployeeDetailsVm> GetEmployeeByIdVm(int employeeId)

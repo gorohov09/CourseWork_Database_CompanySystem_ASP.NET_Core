@@ -13,5 +13,7 @@ namespace Company.DAL.Interfaces
         Task<IEnumerable<EmployeeEntity>> GetAllEmployeesByProject(int projectId);
 
         Task<int> GetCountEmployeesFromProject(int projectId);
+
+        Task<EmployeeEntity> CreateEmployee(EmployeeEntity employeeEntity);
     }
 }

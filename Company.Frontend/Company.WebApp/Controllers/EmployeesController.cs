@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Company.Application.DTO;
 using Company.Clients.Interfaces;
 using Company.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -32,5 +33,38 @@ namespace Company.WebApp.Controllers
             var result = _mapper.Map<EmployeeDetailsViewModel>(employeeDetailsDTO);
             return View(result);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> CreateEmployee()
+        {
+            var createEmpVm = new CreateEmployeeViewModel();
+            return View(createEmpVm);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateEmployee(CreateEmployeeViewModel model)
+        {
+            var dtoEmployee = new EmployeeDTO
+            {
+                LastName = model.LastName,
+                FirstName = model.FirstName,
+                Patronymic = model.Patronymic,
+                Email = model.Email,
+                PhoneNumber = model.PhoneNumber,
+                Birthday = model.Birthday,
+                Salary = model.Salary,
+            };
+
+            var result = await _employeesClient.CreateEmployee(dtoEmployee);
+
+            if (!result)
+            {
+                ModelState.AddModelError("", "Не удалось сохранить данные!");
+                return View(model);
+            }
+
+            return RedirectToAction("Index");
+        }
     }
 }
+ 

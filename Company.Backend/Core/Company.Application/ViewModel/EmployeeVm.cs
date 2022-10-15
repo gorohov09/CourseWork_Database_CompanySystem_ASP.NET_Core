@@ -27,5 +27,13 @@ namespace Company.Application.ViewModel
         public int Age { get; set; }
 
         public int CountProjects { get; set; }
+
+        public DateTime GetBirtday()
+        {
+            string[] array = Birthday.Split(new char[] {'.', '-', '/'}, StringSplitOptions.RemoveEmptyEntries);
+            string newBirthday = $"{array[2]}-{array[1]}-{array[0]}";
+            return DateTime.ParseExact(newBirthday, "yyyy-MM-dd",
+                                       System.Globalization.CultureInfo.InvariantCulture);
+        }
     }
 }
