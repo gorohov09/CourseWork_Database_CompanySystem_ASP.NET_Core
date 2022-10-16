@@ -11,6 +11,7 @@ namespace Company.WebApp.Controllers
 
         public IActionResult Index()
         {
+            var name = User.Identity.Name;
             return View();
         }
     }

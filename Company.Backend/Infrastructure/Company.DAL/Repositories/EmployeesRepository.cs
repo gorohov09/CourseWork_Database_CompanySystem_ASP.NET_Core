@@ -36,6 +36,12 @@ namespace Company.DAL.Repositories
             return countEmployees;
         }
 
+        public async Task<EmployeeEntity> GetEmployeeByEmail(string email)
+        {
+            var employeeEntity = await _context.Employees.FirstOrDefaultAsync(ep => ep.Email == email);
+            return employeeEntity;
+        }
+
         public async Task<EmployeeEntity?> GetEmployeeById(int employeeId)
         {
             var employeeEntity = await _context.Employees.FirstOrDefaultAsync(p => p.Id == employeeId);

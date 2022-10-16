@@ -15,5 +15,7 @@ namespace Company.DAL.Interfaces
         Task<int> GetCountEmployeesFromProject(int projectId);
 
         Task<EmployeeEntity> CreateEmployee(EmployeeEntity employeeEntity);
+
+        Task<EmployeeEntity> GetEmployeeByEmail(string email);
     }
 }

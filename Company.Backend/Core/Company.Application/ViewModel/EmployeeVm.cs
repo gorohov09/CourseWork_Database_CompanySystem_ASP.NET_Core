@@ -24,6 +24,8 @@ namespace Company.Application.ViewModel
 
         public decimal Salary { get; set; }
 
+        public string Password { get; set; }
+
         public int Age { get; set; }
 
         public int CountProjects { get; set; }

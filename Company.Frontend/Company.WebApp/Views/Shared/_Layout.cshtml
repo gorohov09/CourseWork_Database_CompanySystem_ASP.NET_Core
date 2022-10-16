@@ -14,7 +14,10 @@
 							@RenderBody()
 						</div>
 					</div>
-					<partial name="Partial/_LeftSideBar" />
+					@if (User.Identity.IsAuthenticated)
+					{			
+						<partial name="Partial/_LeftSideBar" />
+					}
 			</div>
 			<partial name="Partial/_Scripts" />
 	</body>

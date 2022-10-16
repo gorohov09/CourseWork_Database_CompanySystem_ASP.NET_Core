@@ -20,7 +20,12 @@ namespace Company.WebApp.Models
         public long PhoneNumber { get; set; }
 
         [Display(Name = "E-mail")]
+        [Required(ErrorMessage = "Не указан Email")]
         public string Email { get; set; }
+
+        [Required(ErrorMessage = "Не указан пароль")]
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
 
         [Display(Name = "Зарплата")]
         public decimal Salary { get; set; }
