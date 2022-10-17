@@ -53,10 +53,13 @@
 </table>
     }
     <hr />
-    <h2>@Html.DisplayNameFor(model => model.Birthday):</h2> @Html.DisplayFor(model => model.Birthday)
-    <h2>@Html.DisplayNameFor(model => model.PhoneNumber):</h2> @Html.DisplayFor(model => model.PhoneNumber)
-    <h2>@Html.DisplayNameFor(model => model.Email):</h2> @Html.DisplayFor(model => model.Email)
-    <h2>@Html.DisplayNameFor(model => model.Salary):</h2> @Html.DisplayFor(model => model.Salary)
-    <h2>@Html.DisplayNameFor(model => model.Age):</h2> @Html.DisplayFor(model => model.Age)
+    @if (User.IsInRole("admin"))
+    {
+        <h2>@Html.DisplayNameFor(model => model.Birthday):</h2> @Html.DisplayFor(model => model.Birthday)
+        <h2>@Html.DisplayNameFor(model => model.PhoneNumber):</h2> @Html.DisplayFor(model => model.PhoneNumber)
+        <h2>@Html.DisplayNameFor(model => model.Email):</h2> @Html.DisplayFor(model => model.Email)
+        <h2>@Html.DisplayNameFor(model => model.Salary):</h2> @Html.DisplayFor(model => model.Salary)
+        <h2>@Html.DisplayNameFor(model => model.Age):</h2> @Html.DisplayFor(model => model.Age)
+    }
 </div>
 

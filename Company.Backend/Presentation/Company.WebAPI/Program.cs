@@ -25,11 +25,14 @@ services.AddDbContext<CompanyContext>(options =>
 //Services
 services.AddScoped<IEmployeesService, EmployeesService>();
 services.AddScoped<IProjectsService, ProjectsService>();
+services.AddScoped<IAccountService, AccountService>();
 services.AddTransient<IDbInitializer, DbInitializer>();
 
 //Repository
 services.AddScoped<IEmployeesRepository, EmployeesRepository>();
 services.AddScoped<IProjectRepository, ProjectRepository>();
+services.AddScoped<IRoleRepository, RoleRepository>();
+services.AddScoped<IAccountRepository, AccountRepository>();
 
 services.AddCors(options =>
 {
@@ -48,7 +51,7 @@ var app = builder.Build();
 await using (var scope = app.Services.CreateAsyncScope())
 {
     var db_initializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
-    await db_initializer.InitializeAsync(true);
+    await db_initializer.InitializeAsync(false);
 }
 
 // Configure the HTTP request pipeline.

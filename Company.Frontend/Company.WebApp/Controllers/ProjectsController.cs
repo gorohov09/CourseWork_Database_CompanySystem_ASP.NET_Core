@@ -24,11 +24,18 @@ namespace Company.WebApp.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var projects = _mapper.Map<IEnumerable<ProjectViewModel>>(await _projectsClient.GetProjects());
-            var result = new MainProjectViewModel
+            var result = new MainProjectViewModel();
+
+            IEnumerable<ProjectViewModel> projects = null;
+
+            if (User.IsInRole("admin"))
             {
-                Projects = projects.ToList(),
-            };
+                result.Projects = _mapper.Map<IEnumerable<ProjectViewModel>>(await _projectsClient.GetProjects()).ToList();
+            }
+            else
+            {
+                result.Projects = _mapper.Map<IEnumerable<ProjectViewModel>>(await _projectsClient.GetProjects(User.Identity.Name)).ToList();
+            }
 
             return View(result);
         }

@@ -44,6 +44,9 @@ namespace Company.WebApp.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateEmployee(CreateEmployeeViewModel model)
         {
+            if (!ModelState.IsValid)
+                return View(model);
+
             var dtoEmployee = new EmployeeDTO
             {
                 LastName = model.LastName,
@@ -53,6 +56,7 @@ namespace Company.WebApp.Controllers
                 PhoneNumber = model.PhoneNumber,
                 Birthday = model.Birthday,
                 Salary = model.Salary,
+                Password = model.Password,
             };
 
             var result = await _employeesClient.CreateEmployee(dtoEmployee);

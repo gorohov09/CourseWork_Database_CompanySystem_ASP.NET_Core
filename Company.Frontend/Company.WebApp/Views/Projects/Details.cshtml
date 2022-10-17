@@ -11,7 +11,10 @@
 @if (Model.EmployeeMaster == null)
 {
     <h2>Главный сотрудник не назначен</h2>
-    <a asp-controller="Projects" asp-action="AssigneToEmployee" asp-route-projectId=@Model.Id asp-route-isMaster=@true>Назначить главного сотрудника</a>
+    @if (User.IsInRole("admin"))
+    {
+        <a asp-controller="Projects" asp-action="AssigneToEmployee" asp-route-projectId=@Model.Id asp-route-isMaster=@true>Назначить главного сотрудника</a>
+    }
 }
 else
 {
@@ -24,7 +27,10 @@ else
 @if (Model.Employees == null ||Model.Employees.Count() == 0)
 {
     <h3>Другие сотрудники не назначены</h3>
-    <a asp-controller="Projects" asp-action="AssigneToEmployee" asp-route-projectId=@Model.Id>Назначить сотрудника</a>
+    @if (User.IsInRole("admin"))
+    {
+        <a asp-controller="Projects" asp-action="AssigneToEmployee" asp-route-projectId=@Model.Id>Назначить сотрудника</a>
+    }
 }
 else
 {
@@ -33,12 +39,19 @@ else
     <h3>
         <a asp-controller="Employees" asp-action="Details" asp-route-empId=@e.Id>@e.LastName @e.FirstName @e.Email @e.PhoneNumber
         </a>
-        <form asp-controller="Projects" asp-action="UnassigneToEmployee" asp-route-projectId="@Model.Id" asp-route-employeeId="@e.Id">
-            <input type="submit" value="Снять с проекта" class="btn btn-sm btn-danger" />
-        </form>
+        @if (User.IsInRole("admin"))
+        {
+            <form asp-controller="Projects" asp-action="UnassigneToEmployee" asp-route-projectId="@Model.Id" asp-route-employeeId="@e.Id">
+                <input type="submit" value="Снять с проекта" class="btn btn-sm btn-danger" />
+            </form>
+        }
+        
     </h3>
 }
-    <a asp-controller="Projects" asp-action="AssigneToEmployee" asp-route-projectId=@Model.Id>Назначить сотрудника</a>
+    @if (User.IsInRole("admin"))
+    {
+        <a asp-controller="Projects" asp-action="AssigneToEmployee" asp-route-projectId=@Model.Id>Назначить сотрудника</a>
+    }
 }
 
 

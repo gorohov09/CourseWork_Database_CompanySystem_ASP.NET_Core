@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE HTML>
 <html>
 	<head>
-		<title>Editorial by HTML5 UP</title>
+		<title>Моя компания</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<partial name="Partial/_Styles" />
@@ -10,11 +10,17 @@
 			<div id="wrapper">
 					<div id="main">
 						<div class="inner">
-							<partial name="Partial/_Header" />
+							@if (User.Identity.IsAuthenticated)
+							{
+								<partial name="Partial/_Header" />
+							}
 							@RenderBody()
 						</div>
 					</div>
-					<partial name="Partial/_LeftSideBar" />
+					@if (User.Identity.IsAuthenticated)
+					{			
+						<partial name="Partial/_LeftSideBar" />
+					}
 			</div>
 			<partial name="Partial/_Scripts" />
 	</body>

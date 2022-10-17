@@ -51,10 +51,12 @@ namespace Company.Clients.Employees
             return projectDetailsDTO;
         }
 
-        public async Task<IEnumerable<ProjectDTO>> GetProjects()
+        public async Task<IEnumerable<ProjectDTO>> GetProjects(string email = null)
         {
-            var projectsDTO = await GetAsync<IEnumerable<ProjectDTO>>("all");
-            return projectsDTO;
+            if (email == null)
+                return await GetAsync<IEnumerable<ProjectDTO>>("all");
+            else
+                return await GetAsync<IEnumerable<ProjectDTO>>($"email/{email}");
         }
 
         public async Task<bool> UnassigneProjectToEmployee(int projectId, int employeeId)

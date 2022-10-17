@@ -18,10 +18,15 @@ namespace Company.Domain.Entities
 
         public string Email { get; set; }
 
+        public string Password { get; set; }
+
         [Column(TypeName = "decimal(18,2)")] //Указание типа, который храним в БД
         public decimal Salary { get; set; }
 
         public IEnumerable<EmployeeProjectEntity> EmployeeProjects { get; set; }
+
+        public int? RoleId { get; set; }
+        public RoleEntity Role { get; set; }
 
         public int CalculateAgeEmployee()
         {

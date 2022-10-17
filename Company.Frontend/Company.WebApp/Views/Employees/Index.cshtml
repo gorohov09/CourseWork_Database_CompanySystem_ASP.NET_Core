@@ -80,6 +80,10 @@
     </tbody>
     
 </table>
-<a class="btn btn-default" asp-action="CreateEmployee">Создать</a>
+@if (User.IsInRole("admin"))
+{
+    <a class="btn btn-default" asp-action="CreateEmployee">Создать</a>
+}
+
 
 

@@ -12,15 +12,24 @@ namespace Company.Application.Services
 
         private readonly IProjectRepository _projectRepository;
 
-        public EmployeesService(IEmployeesRepository employeesRepository, IProjectRepository projectRepository)
+        private readonly IRoleRepository _roleRepository;
+
+        public EmployeesService(IEmployeesRepository employeesRepository, IProjectRepository projectRepository,
+            IRoleRepository roleRepository)
         {
             _employeesRepository = employeesRepository;
             _projectRepository = projectRepository;
+            _roleRepository = roleRepository;
         }
 
         public async Task<bool> CreateEmployee(EmployeeVm employeeVm)
         {
             if (employeeVm == null)
+                return false;
+
+            var emploeeEntity = await _employeesRepository.GetEmployeeByEmail(employeeVm.Email);
+
+            if (emploeeEntity != null)
                 return false;
 
             var employeeEntity = new EmployeeEntity
@@ -32,10 +41,38 @@ namespace Company.Application.Services
                 PhoneNumber = employeeVm.PhoneNumber,
                 Email = employeeVm.Email,
                 Salary = employeeVm.Salary,
+                Password = employeeVm.Password,
             };
+
+            var employeeRole = await _roleRepository.GetRoleByName("user");
+            if (employeeRole != null)
+                employeeEntity.Role = employeeRole;
 
             var employeeEntityResult = await _employeesRepository.CreateEmployee(employeeEntity);
             return employeeEntityResult.Id > 0;
+        }
+
+        public async Task<EmployeeVm> GetEmployeeByEmail(string email)
+        {
+            var emploeeEntity = await _employeesRepository.GetEmployeeByEmail(email);
+
+            if (emploeeEntity == null)
+                return null;
+
+            var employeeVm = new EmployeeVm
+            {
+                Id = emploeeEntity.Id,
+                LastName = emploeeEntity.LastName,
+                FirstName = emploeeEntity.FirstName,
+                Patronymic = emploeeEntity.Patronymic,
+                Birthday = emploeeEntity.Birthday.ToShortDateString(),
+                Email = emploeeEntity.Email,
+                PhoneNumber = emploeeEntity.PhoneNumber,
+                Salary = emploeeEntity.Salary,
+                Age = emploeeEntity.CalculateAgeEmployee(),
+            };
+
+            return employeeVm;
         }
 
         public async Task<EmployeeDetailsVm> GetEmployeeByIdVm(int employeeId)

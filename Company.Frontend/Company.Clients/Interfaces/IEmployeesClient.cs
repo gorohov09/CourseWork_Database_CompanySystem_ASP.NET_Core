@@ -8,6 +8,8 @@ namespace Company.Clients.Interfaces
 
         Task<EmployeeDetailsDTO> GetEmployeeDetailsById(int empId);
 
+        Task<EmployeeDTO> GetEmployeeByEmail(string empEmail);
+
         Task<IEnumerable<EmployeeDTO>> GetEmployeesNotProject(int projectId);
 
         Task<bool> CreateEmployee(EmployeeDTO employeeDTO);

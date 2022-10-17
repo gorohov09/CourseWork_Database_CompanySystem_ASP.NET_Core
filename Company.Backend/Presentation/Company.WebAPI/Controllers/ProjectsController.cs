@@ -28,6 +28,14 @@ namespace Company.WebAPI.Controllers
             return Ok(projectsDTO);
         }
 
+        [HttpGet("email/{emailEmployee}")]
+        public async Task<IActionResult> GetByEmail(string emailEmployee)
+        {
+            var projects = await _projectsService.GetProjectByEmail(emailEmployee);
+            var projectsDTO = _mapper.Map<IEnumerable<ProjectDTO>>(projects);
+            return Ok(projectsDTO);
+        }
+
         [HttpGet("details/{projectId}")]
         public async Task<IActionResult> GetById(int projectId)
         {
