@@ -51,7 +51,7 @@ var app = builder.Build();
 await using (var scope = app.Services.CreateAsyncScope())
 {
     var db_initializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
-    await db_initializer.InitializeAsync(true);
+    await db_initializer.InitializeAsync(false);
 }
 
 // Configure the HTTP request pipeline.

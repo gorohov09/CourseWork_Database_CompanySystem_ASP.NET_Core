@@ -69,11 +69,11 @@ namespace Company.DAL
 
         private async Task InitializeProjectsAsync(CancellationToken cancel)
         {
-            //if (await _context.Projects.AnyAsync())
-            //{
-            //    _logger.LogInformation("Инициализация проектов не требуется");
-            //    return;
-            //}
+            if (await _context.Projects.AnyAsync())
+            {
+                _logger.LogInformation("Инициализация проектов не требуется");
+                return;
+            }
 
             await using (await _context.Database.BeginTransactionAsync())
             {

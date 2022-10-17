@@ -72,6 +72,34 @@ namespace Company.Application.Services
             return projectsVmList;
         }
 
+        public async Task<IEnumerable<ProjectVm>> GetProjectByEmail(string email)
+        {
+            var employee = await _employeesRepository.GetEmployeeByEmail(email);
+
+            if (employee == null)
+                return null;
+
+            var projectsEntity = await _projectRepository.GetProjectByEmployee(employee.Id);
+
+            List<ProjectVm> projectsVmList = new List<ProjectVm>();
+            foreach (var projectEntity in projectsEntity)
+            {
+                var countEmployees = await _employeesRepository.GetCountEmployeesFromProject(projectEntity.Id);
+
+                var projectVm = new ProjectVm
+                {
+                    Id = projectEntity.Id,
+                    Title = projectEntity.Title,
+                    Description = projectEntity.Description,
+                    Status = projectEntity.GetStatusFromProject(),
+                    CountEmployees = countEmployees,
+                };
+
+                projectsVmList.Add(projectVm);
+            }
+            return projectsVmList;
+        }
+
         public async Task<ProjectDetailsVm> GetProjectDetailsVm(int projectId)
         {
             var projectEntity = await _projectRepository.GetProjectById(projectId);

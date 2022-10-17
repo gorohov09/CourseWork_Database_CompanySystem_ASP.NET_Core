@@ -11,7 +11,15 @@
 				<h2>Меню</h2>
 			</header>
 			<ul>
-				<li><a asp-controller="Employees" asp-action="Index">Мои сотрудники</a></li>
+				@if (User.IsInRole("admin"))
+				{
+					<li><a asp-controller="Employees" asp-action="Index">Мои сотрудники</a></li>
+				}
+				else
+				{
+					<li><a asp-controller="Employees" asp-action="Index">Мои коллеги</a></li>
+				}
+				
 				<li><a asp-controller="Projects" asp-action="Index">Мои проекты</a></li>
 				<li><a href="elements.html">Клиенты</a></li>
 			</ul>

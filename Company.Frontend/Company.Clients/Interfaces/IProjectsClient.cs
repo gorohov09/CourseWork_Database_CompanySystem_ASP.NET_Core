@@ -4,7 +4,7 @@ namespace Company.Clients.Interfaces
 {
     public interface IProjectsClient
     {
-        Task<IEnumerable<ProjectDTO>> GetProjects();
+        Task<IEnumerable<ProjectDTO>> GetProjects(string email = null);
 
         Task<ProjectDetailsDTO> GetProjectById(int projectId);
 
