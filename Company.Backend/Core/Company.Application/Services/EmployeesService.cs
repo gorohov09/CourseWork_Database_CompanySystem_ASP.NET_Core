@@ -52,6 +52,29 @@ namespace Company.Application.Services
             return employeeEntityResult.Id > 0;
         }
 
+        public async Task<EmployeeVm> GetEmployeeByEmail(string email)
+        {
+            var emploeeEntity = await _employeesRepository.GetEmployeeByEmail(email);
+
+            if (emploeeEntity == null)
+                return null;
+
+            var employeeVm = new EmployeeVm
+            {
+                Id = emploeeEntity.Id,
+                LastName = emploeeEntity.LastName,
+                FirstName = emploeeEntity.FirstName,
+                Patronymic = emploeeEntity.Patronymic,
+                Birthday = emploeeEntity.Birthday.ToShortDateString(),
+                Email = emploeeEntity.Email,
+                PhoneNumber = emploeeEntity.PhoneNumber,
+                Salary = emploeeEntity.Salary,
+                Age = emploeeEntity.CalculateAgeEmployee(),
+            };
+
+            return employeeVm;
+        }
+
         public async Task<EmployeeDetailsVm> GetEmployeeByIdVm(int employeeId)
         {
             var employeeEntity = await _employeesRepository.GetEmployeeById(employeeId);

@@ -1,18 +1,27 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Company.Clients.Interfaces;
+using Company.WebApp.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Company.WebApp.Controllers
 {
     public class HomeController : Controller
     {
-        public HomeController()
+        private readonly IEmployeesClient _employeesClient;
+
+        private readonly IMapper _mapper;
+
+        public HomeController(IEmployeesClient employeesClient, IMapper mapper)
         {
-            
+            _employeesClient = employeesClient;
+            _mapper = mapper;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var name = User.Identity.Name;
-            return View();
+            var user = await _employeesClient.GetEmployeeByEmail(User.Identity.Name);
+            var employeeViewModel = _mapper.Map<EmployeeViewModel>(user);
+            return View(employeeViewModel);
         }
     }
 }

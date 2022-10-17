@@ -12,5 +12,7 @@ namespace Company.Application.Interfaces
         Task<IEnumerable<EmployeeVm>> GetEmployeeNotThisProject(int projectId);
 
         Task<bool> CreateEmployee(EmployeeVm employeeVm);
+
+        Task<EmployeeVm> GetEmployeeByEmail(string email);
     }
 }

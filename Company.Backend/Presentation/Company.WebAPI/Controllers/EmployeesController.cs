@@ -35,6 +35,13 @@ namespace Company.WebAPI.Controllers
             return Ok(employeeDetailsDTO);
         }
 
+        [HttpGet("email/{empEmail}")]
+        public async Task<IActionResult> GetEmployeeByEmail(string empEmail)
+        {
+            var employeeDetailsDTO = _mapper.Map<EmployeeDTO>(await _employeesService.GetEmployeeByEmail(empEmail));
+            return Ok(employeeDetailsDTO);
+        }
+
         [HttpGet("notProject/{projectId}")]
         public async Task<IActionResult> GetEmployeeNotProject(int projectId)
         {

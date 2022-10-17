@@ -1,3 +1,4 @@
+using Company.Clients.Account;
 using Company.Clients.Employees;
 using Company.Clients.Interfaces;
 using Company.DAL.Context;
@@ -28,7 +29,8 @@ services.AddAutoMapper(Assembly.GetEntryAssembly());
 //Clients
 services.AddHttpClient("Company.WebAPI", client => client.BaseAddress = new(configuration["WebAPI"]))
     .AddTypedClient<IEmployeesClient, EmployeesClient>()
-    .AddTypedClient<IProjectsClient, ProjectsClient>();
+    .AddTypedClient<IProjectsClient, ProjectsClient>()
+    .AddTypedClient<IAccountClient, AccountClient>();
 
 
 var app = builder.Build();

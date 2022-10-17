@@ -1,4 +1,6 @@
-﻿using Company.DAL.Context;
+﻿using Company.Application.DTO;
+using Company.Clients.Interfaces;
+using Company.DAL.Context;
 using Company.Domain.Entities;
 using Company.WebApp.Models;
 using Microsoft.AspNetCore.Authentication;
@@ -11,11 +13,11 @@ namespace Company.WebApp.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly CompanyContext _context;
+        private readonly IAccountClient _accountClient;
 
-        public AccountController(CompanyContext context)
+        public AccountController(IAccountClient accountClient)
         {
-            _context = context;
+            _accountClient = accountClient;
         }
 
         [HttpGet]
@@ -30,13 +32,15 @@ namespace Company.WebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                EmployeeEntity user = await _context.Employees
-                    .Include(u => u.Role)
-                    .FirstOrDefaultAsync(u => u.Email == model.Email && u.Password == model.Password);
-
-                if (user != null)
+                var result = await _accountClient.Login(new RequestLogin
                 {
-                    await Authenticate(user); // аутентификация
+                    Email = model.Email,
+                    Password = model.Password,
+                });
+
+                if (result.IsSuccessfully)
+                {
+                    await Authenticate(result); // аутентификация
 
                     return RedirectToAction("Index", "Home");
                 }
@@ -51,13 +55,13 @@ namespace Company.WebApp.Controllers
             return RedirectToAction("Login", "Account");
         }
 
-        private async Task Authenticate(EmployeeEntity user)
+        private async Task Authenticate(ResponseLogin user)
         {
             // создаем один claim
             var claims = new List<Claim>
             {
                 new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email),
-                new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role?.Name)
+                new Claim(ClaimsIdentity.DefaultRoleClaimType, user.RoleName)
             };
             // создаем объект ClaimsIdentity
             ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType,

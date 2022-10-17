@@ -37,5 +37,11 @@ namespace Company.Clients.Employees
                 .Content
                 .ReadFromJsonAsync<bool>();
         }
+
+        public async Task<EmployeeDTO> GetEmployeeByEmail(string empEmail)
+        {
+            var employeeDetailsDTO = await GetAsync<EmployeeDTO>($"email/{empEmail}");
+            return employeeDetailsDTO;
+        }
     }
 }

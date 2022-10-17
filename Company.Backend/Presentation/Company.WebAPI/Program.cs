@@ -25,12 +25,14 @@ services.AddDbContext<CompanyContext>(options =>
 //Services
 services.AddScoped<IEmployeesService, EmployeesService>();
 services.AddScoped<IProjectsService, ProjectsService>();
+services.AddScoped<IAccountService, AccountService>();
 services.AddTransient<IDbInitializer, DbInitializer>();
 
 //Repository
 services.AddScoped<IEmployeesRepository, EmployeesRepository>();
 services.AddScoped<IProjectRepository, ProjectRepository>();
 services.AddScoped<IRoleRepository, RoleRepository>();
+services.AddScoped<IAccountRepository, AccountRepository>();
 
 services.AddCors(options =>
 {
