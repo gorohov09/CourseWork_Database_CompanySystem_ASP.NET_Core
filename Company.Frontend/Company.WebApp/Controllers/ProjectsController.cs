@@ -53,7 +53,7 @@ namespace Company.WebApp.Controllers
         {
             var result = await _projectsClient.AssigneProjectToEmployee(projectId, model.EmployeeId, isMaster);
 
-            return RedirectToAction("Index");
+            return result ? RedirectToAction("Index") : NotFound();
         }
 
         [HttpGet]
