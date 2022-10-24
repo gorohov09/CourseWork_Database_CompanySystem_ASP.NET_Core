@@ -18,6 +18,7 @@ namespace Company.DAL.Repositories
         {
             var historyActionProject = await _context.HistoryActions
                 .Where(h => h.ProjectId == projectId)
+                .OrderByDescending(h => h.CreationTime)
                 .ToListAsync();
 
             return historyActionProject;

@@ -172,14 +172,30 @@ namespace Company.Application.Services
                 });
             }
 
+            projectDetailsVm.HistoryActions = await _historyActionService.GetHistoryActionProject(projectId);
+
             return projectDetailsVm;
         }
 
         public async Task<bool> UnassigneProjectToEmployee(int employeeId, int projectId)
         {
+            var employeeEntity = await _employeesRepository.GetEmployeeById(employeeId);
+
+            if (employeeEntity == null)
+                return false;
+
             var result = await _projectRepository.UnassigneProjectToEmployee(employeeId, projectId);
 
-            return result;
+            if (result)
+            {
+                var resultLog = await _historyActionService.SaveHistoryActionProject(
+                    string.Format("Сотрудник {0} {1} снят с проекта", employeeEntity.LastName, employeeEntity.FirstName), projectId);
+
+                if (resultLog)
+                    return true;
+            }
+
+            return false;
         }
 
         private Status GetStatus(string status)

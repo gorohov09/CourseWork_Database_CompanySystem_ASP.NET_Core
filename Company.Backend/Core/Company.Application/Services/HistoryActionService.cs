@@ -1,4 +1,5 @@
 ﻿using Company.Application.Interfaces;
+using Company.Application.ViewModel;
 using Company.DAL.Interfaces;
 using Company.Domain.Entities;
 
@@ -14,6 +15,24 @@ namespace Company.Application.Services
         {
             _historyActionRepository = historyActionRepository;
             _projectRepository = projectRepository;
+        }
+
+        public async Task<IEnumerable<HistoryActionVm>> GetHistoryActionProject(int projectId)
+        {
+            var projectEntity = await _projectRepository.GetProjectById(projectId);
+
+            if (projectEntity == null)
+                return null;
+
+            var historyActionsByProject = (await _historyActionRepository.GetHistoryActionProject(projectId))
+                .Select(x => new HistoryActionVm
+                {
+                    Id = x.Id,
+                    Title = x.Title,
+                    CreationTime = x.CreationTime,
+                });
+
+            return historyActionsByProject;
         }
 
         public async Task<bool> SaveHistoryActionProject(string title, int projectId)

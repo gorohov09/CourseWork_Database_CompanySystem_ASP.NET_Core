@@ -13,5 +13,7 @@
         public EmployeeMasterDTO EmployeeMaster { get; set; }
 
         public IEnumerable<EmployeeDTO> Employees { get; set; }
+
+        public IEnumerable<HistoryActionDTO> HistoryActions { get; set; }
     }
 }

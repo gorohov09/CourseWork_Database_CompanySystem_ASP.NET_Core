@@ -16,5 +16,7 @@
         public EmployeeMasterVm EmployeeMaster { get; set; }
 
         public IEnumerable<EmployeeVm> Employees { get; set; }
+
+        public IEnumerable<HistoryActionVm> HistoryActions { get; set; }
     }
 }
