@@ -19,6 +19,8 @@ namespace Company.DAL.Context
 
         public DbSet<RoleEntity> Roles { get; set; }
 
+        public DbSet<HistoryActionEntity> HistoryActions { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<EmployeeProjectEntity>().HasKey(ep => new { ep.EmployeeId, ep.ProjectId });
