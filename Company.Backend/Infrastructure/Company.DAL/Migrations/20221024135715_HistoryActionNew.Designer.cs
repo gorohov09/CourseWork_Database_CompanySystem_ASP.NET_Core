@@ -4,6 +4,7 @@ using Company.DAL.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Company.DAL.Migrations
 {
     [DbContext(typeof(CompanyContext))]
-    partial class CompanyContextModelSnapshot : ModelSnapshot
+    [Migration("20221024135715_HistoryActionNew")]
+    partial class HistoryActionNew
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -112,7 +114,7 @@ namespace Company.DAL.Migrations
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ProjectId")
+                    b.Property<int>("ProjectEntityId")
                         .HasColumnType("int");
 
                     b.Property<string>("Title")
@@ -121,7 +123,7 @@ namespace Company.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProjectId");
+                    b.HasIndex("ProjectEntityId");
 
                     b.ToTable("HistoryActions");
                 });
@@ -209,13 +211,13 @@ namespace Company.DAL.Migrations
 
             modelBuilder.Entity("Company.Domain.Entities.HistoryActionEntity", b =>
                 {
-                    b.HasOne("Company.Domain.Entities.ProjectEntity", "Project")
+                    b.HasOne("Company.Domain.Entities.ProjectEntity", "ProjectEntity")
                         .WithMany("HistoryActions")
-                        .HasForeignKey("ProjectId")
+                        .HasForeignKey("ProjectEntityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Project");
+                    b.Navigation("ProjectEntity");
                 });
 
             modelBuilder.Entity("Company.Domain.Entities.EmployeeEntity", b =>

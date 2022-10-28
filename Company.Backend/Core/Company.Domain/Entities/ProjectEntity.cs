@@ -20,6 +20,8 @@ namespace Company.Domain.Entities
 
         public IEnumerable<EmployeeProjectEntity> ProjectEmployees { get; set; }
 
+        public IEnumerable<HistoryActionEntity> HistoryActions { get; set; }
+
         public string GetStatusFromProject()
         {
             if (Status == Status.OPEN)

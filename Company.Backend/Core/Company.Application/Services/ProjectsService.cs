@@ -11,10 +11,14 @@ namespace Company.Application.Services
 
         private readonly IEmployeesRepository _employeesRepository;
 
-        public ProjectsService(IProjectRepository projectRepository, IEmployeesRepository employeesRepository)
+        private readonly IHistoryActionService _historyActionService;
+
+        public ProjectsService(IProjectRepository projectRepository, IEmployeesRepository employeesRepository,
+            IHistoryActionService historyActionService)
         {
             _projectRepository = projectRepository;
             _employeesRepository = employeesRepository;
+            _historyActionService = historyActionService;
         }
 
         public async Task<bool> AssigneProjectToEmployee(int employeeId, int projectId, bool isMaster = false)
@@ -27,12 +31,23 @@ namespace Company.Application.Services
 
             var result = await _projectRepository.AssigneProjectToEmployee(employeeEntity.Id, projectEntity.Id, isMaster);
 
+            if (result)
+            {
+                var resultLog = await _historyActionService.SaveHistoryActionProject(
+                    string.Format("Сотрудник {0} {1} назначен на проект", employeeEntity.LastName, employeeEntity.FirstName), projectId);
+
+                if (resultLog)
+                    return true;
+            }
+
             return result;
         }
 
         public async Task<bool> ChangeStatusToProject(int projectId, string newStatus)
         {
             var projectEntity = await _projectRepository.GetProjectById(projectId);
+
+            var oldStatus = projectEntity.GetStatusFromProject();
 
             if (projectEntity == null)
                 return false;
@@ -47,7 +62,16 @@ namespace Company.Application.Services
 
             var result = await _projectRepository.ChangeStatusToProject(projectEntity, status);
 
-            return result;
+            if (result)
+            {
+                var resultLog = await _historyActionService.SaveHistoryActionProject(
+                    string.Format("Изменен статус с {0} на {1}", oldStatus, newStatus), projectId);
+
+                if (resultLog)
+                    return true;
+            }
+
+            return false;
         }
 
         public async Task<IEnumerable<ProjectVm>> GetAllProjectsVm()
@@ -148,14 +172,30 @@ namespace Company.Application.Services
                 });
             }
 
+            projectDetailsVm.HistoryActions = await _historyActionService.GetHistoryActionProject(projectId);
+
             return projectDetailsVm;
         }
 
         public async Task<bool> UnassigneProjectToEmployee(int employeeId, int projectId)
         {
+            var employeeEntity = await _employeesRepository.GetEmployeeById(employeeId);
+
+            if (employeeEntity == null)
+                return false;
+
             var result = await _projectRepository.UnassigneProjectToEmployee(employeeId, projectId);
 
-            return result;
+            if (result)
+            {
+                var resultLog = await _historyActionService.SaveHistoryActionProject(
+                    string.Format("Сотрудник {0} {1} снят с проекта", employeeEntity.LastName, employeeEntity.FirstName), projectId);
+
+                if (resultLog)
+                    return true;
+            }
+
+            return false;
         }
 
         private Status GetStatus(string status)
