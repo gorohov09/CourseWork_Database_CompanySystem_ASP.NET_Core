@@ -29,12 +29,13 @@ namespace Company.Clients.Employees
             return success;
         }
 
-        public async Task<bool> ChangeStatusProject(int projectId, string newStatus)
+        public async Task<bool> ChangeStatusProject(int projectId, string newStatus, string emailEmployee)
         {
             var dtoModel = new ChangeStatusDTO
             {
                 ProjectId = projectId,
-                NewStatus = newStatus
+                NewStatus = newStatus,
+                EmailEmployee = emailEmployee
             };
 
             var response = await PutAsync("changeStatus", dtoModel);

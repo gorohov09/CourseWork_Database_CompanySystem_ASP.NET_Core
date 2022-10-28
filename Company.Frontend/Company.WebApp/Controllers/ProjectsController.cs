@@ -102,7 +102,8 @@ namespace Company.WebApp.Controllers
         [HttpPost]
         public async Task<IActionResult> ChangeStatus(ChangeStatusViewModel model)
         {
-            var result = await _projectsClient.ChangeStatusProject(model.ProjectId, model.NewStatus);
+            var email = User.Identity!.Name;
+            var result = await _projectsClient.ChangeStatusProject(model.ProjectId, model.NewStatus, email);
 
             if (!result)
             {
