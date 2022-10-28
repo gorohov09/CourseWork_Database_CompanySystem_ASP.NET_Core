@@ -21,5 +21,8 @@ namespace Company.WebApp.Models
 
         [Display(Name = "Другие сотрудники, выполняющие проект")]
         public IEnumerable<EmployeeViewModel> Employees { get; set; }
+
+        [Display(Name = "История действий")]
+        public IEnumerable<HistoryActionViewModel> HistoryActions { get; set; }
     }
 }

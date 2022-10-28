@@ -54,6 +54,19 @@ else
     }
 }
 
+<h2>@Html.DisplayNameFor(model => model.HistoryActions):</h2>
+@if (Model.HistoryActions.Count() == 0)
+{
+    <p>История пуста</p>
+}
+else
+{
+    foreach (var history in Model.HistoryActions)
+    {
+        <p>@history.CreationTime --- @history.Title</p>
+    }
+}
+
 
 
 
