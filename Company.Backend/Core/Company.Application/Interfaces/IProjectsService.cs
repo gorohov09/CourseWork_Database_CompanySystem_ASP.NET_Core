@@ -12,7 +12,7 @@ namespace Company.Application.Interfaces
 
         Task<bool> UnassigneProjectToEmployee(int employeeId, int projectId);
 
-        Task<bool> ChangeStatusToProject(int projectId, string newStatus);
+        Task<bool> ChangeStatusToProject(int projectId, string newStatus, string emailEmployee);
 
         Task<IEnumerable<ProjectVm>> GetProjectByEmail(string email);
     }

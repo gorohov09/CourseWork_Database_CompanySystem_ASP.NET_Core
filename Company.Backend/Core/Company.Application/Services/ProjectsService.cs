@@ -43,7 +43,7 @@ namespace Company.Application.Services
             return result;
         }
 
-        public async Task<bool> ChangeStatusToProject(int projectId, string newStatus)
+        public async Task<bool> ChangeStatusToProject(int projectId, string newStatus, string emailEmployee)
         {
             var projectEntity = await _projectRepository.GetProjectById(projectId);
 
@@ -64,8 +64,10 @@ namespace Company.Application.Services
 
             if (result)
             {
+                var employeeEntity = await _employeesRepository.GetEmployeeByEmail(emailEmployee);
+
                 var resultLog = await _historyActionService.SaveHistoryActionProject(
-                    string.Format("Изменен статус с {0} на {1}", oldStatus, newStatus), projectId);
+                    $"{employeeEntity.LastName} {employeeEntity.FirstName} изменил(а) статус с {oldStatus} на {newStatus}", projectId);
 
                 if (resultLog)
                     return true;
