@@ -18,6 +18,8 @@ namespace Company.Domain.Entities
 
         public Status Status { get; set; }
 
+        public long Minutes { get; set; }
+
         public IEnumerable<EmployeeProjectEntity> ProjectEmployees { get; set; }
 
         public IEnumerable<HistoryActionEntity> HistoryActions { get; set; }

@@ -1,4 +1,5 @@
-﻿using Company.Application.ViewModel;
+﻿using Company.Application.DTO;
+using Company.Application.ViewModel;
 
 namespace Company.Application.Interfaces
 {
@@ -15,5 +16,7 @@ namespace Company.Application.Interfaces
         Task<bool> ChangeStatusToProject(int projectId, string newStatus, string emailEmployee);
 
         Task<IEnumerable<ProjectVm>> GetProjectByEmail(string email);
+
+        Task<bool> LogTimeById(LogTimeDTO logTimeDTO);
     }
 }

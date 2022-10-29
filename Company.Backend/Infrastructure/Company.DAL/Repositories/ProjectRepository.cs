@@ -75,5 +75,11 @@ namespace Company.DAL.Repositories
             projectEntity.Status = newStatus;
             return (await _context.SaveChangesAsync() > 0);
         }
+
+        public async Task<bool> LogTimeProject(ProjectEntity projectEntity, long minutes)
+        {
+            projectEntity.Minutes += minutes;
+            return (await _context.SaveChangesAsync() > 0);
+        }
     }
 }

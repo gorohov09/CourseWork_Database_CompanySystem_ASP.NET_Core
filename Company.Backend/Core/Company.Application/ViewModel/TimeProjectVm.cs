@@ -2,20 +2,11 @@
 {
     public class TimeProjectVm
     {
-        public int Days { get; }
+        public int Days { get; set; }
 
-        public int Hours { get; }
+        public int Hours { get; set; }
 
-        public int Minutes { get; }
+        public int Minutes { get; set; }
 
-        public TimeProjectVm(int Days, int Hours, int Minutes)
-        {
-            if (Hours > 24 || Minutes > 60)
-                throw new ArgumentOutOfRangeException(nameof(Hours), nameof(Minutes));
-
-            this.Days = Days;
-            this.Hours = Hours;
-            this.Minutes = Minutes;
-        }
     }
 }

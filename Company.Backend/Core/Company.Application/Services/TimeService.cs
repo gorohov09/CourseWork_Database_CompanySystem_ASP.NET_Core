@@ -14,10 +14,10 @@ namespace Company.Application.Services
 
             var _minutes = minutes % 60;
 
-            return new TimeProjectVm(_days, _hours, _minutes);
+            return new TimeProjectVm { Days = _days, Hours = _hours, Minutes = _minutes };
         }
 
-        public int ConvertTimeInMinutes(TimeProjectVm time)
+        public long ConvertTimeInMinutes(TimeProjectVm time)
         {
             return time.Days * 24 * 60 + time.Hours * 60 + time.Minutes;
         }
