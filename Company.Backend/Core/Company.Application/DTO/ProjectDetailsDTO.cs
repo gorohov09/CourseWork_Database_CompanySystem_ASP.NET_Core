@@ -9,6 +9,8 @@
         public string Description { get; set; }
 
         public string Status { get; set; }
+
+        public TimeProjectDTO Time { get; set; }
         
         public EmployeeMasterDTO EmployeeMaster { get; set; }
 

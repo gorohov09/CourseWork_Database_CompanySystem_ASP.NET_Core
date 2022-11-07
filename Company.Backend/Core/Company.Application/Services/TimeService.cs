@@ -5,7 +5,7 @@ namespace Company.Application.Services
 {
     public class TimeService : ITimeService
     {
-        public TimeProjectVm ConvertMinutesInTime(int minutes)
+        public TimeProjectVm ConvertMinutesInTime(long minutes)
         {
             var _days = minutes / 1440;
             minutes = minutes % 1440;
@@ -14,7 +14,7 @@ namespace Company.Application.Services
 
             var _minutes = minutes % 60;
 
-            return new TimeProjectVm { Days = _days, Hours = _hours, Minutes = _minutes };
+            return new TimeProjectVm { Days = (int)_days, Hours = (int)_hours, Minutes = (int)_minutes };
         }
 
         public long ConvertTimeInMinutes(TimeProjectVm time)

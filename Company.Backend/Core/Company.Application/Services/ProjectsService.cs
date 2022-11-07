@@ -142,7 +142,8 @@ namespace Company.Application.Services
                 Id = projectEntity.Id,
                 Title = projectEntity.Title,
                 Description = projectEntity.Description,
-                Status = projectEntity.GetStatusFromProject()
+                Status = projectEntity.GetStatusFromProject(),
+                Time = _timeService.ConvertMinutesInTime(projectEntity.Minutes)
             };
 
             var employeeEntity = await _employeesRepository.GetMasterEmployeeByProject(projectEntity.Id);

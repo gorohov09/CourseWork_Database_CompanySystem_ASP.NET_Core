@@ -6,6 +6,6 @@ namespace Company.Application.Interfaces
     {
         long ConvertTimeInMinutes(TimeProjectVm time);
 
-        TimeProjectVm ConvertMinutesInTime(int minutes);
+        TimeProjectVm ConvertMinutesInTime(long minutes);
     }
 }

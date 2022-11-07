@@ -11,6 +11,11 @@
         public string Status { get; set; }
 
         /// <summary>
+        /// Время, потраченное на проект
+        /// </summary>
+        public TimeProjectVm Time { get; set; }
+
+        /// <summary>
         /// Главный сотрудник на проекте
         /// </summary>
         public EmployeeMasterVm EmployeeMaster { get; set; }

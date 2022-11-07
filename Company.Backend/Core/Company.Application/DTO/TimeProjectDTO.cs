@@ -2,10 +2,10 @@
 {
     public class TimeProjectDTO
     {
-        public int Days { get; }
+        public int Days { get; set; }
 
-        public int Hours { get; }
+        public int Hours { get; set; }
 
-        public int Minutes { get; }
+        public int Minutes { get; set; }
     }
 }
