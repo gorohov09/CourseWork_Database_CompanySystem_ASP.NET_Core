@@ -24,5 +24,8 @@ namespace Company.WebApp.Models
 
         [Display(Name = "История действий")]
         public IEnumerable<HistoryActionViewModel> HistoryActions { get; set; }
+
+        [Display(Name = "Время, потраченное на проект")]
+        public TimeProjectViewModel Time { get; set; }
     }
 }
