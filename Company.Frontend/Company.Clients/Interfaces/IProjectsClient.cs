@@ -13,5 +13,7 @@ namespace Company.Clients.Interfaces
         Task<bool> UnassigneProjectToEmployee(int projectId, int employeeId);
 
         Task<bool> ChangeStatusProject(int projectId, string newStatus, string emailEmployee);
+
+        Task<bool> LogTime(int projectId, string timeLine, string email);
     }
 }

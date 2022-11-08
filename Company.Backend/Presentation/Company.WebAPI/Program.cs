@@ -27,6 +27,7 @@ services.AddScoped<IEmployeesService, EmployeesService>();
 services.AddScoped<IProjectsService, ProjectsService>();
 services.AddScoped<IAccountService, AccountService>();
 services.AddScoped<IHistoryActionService, HistoryActionService>();
+services.AddTransient<ITimeService, TimeService>();
 services.AddTransient<IDbInitializer, DbInitializer>();
 
 

@@ -17,5 +17,7 @@ namespace Company.DAL.Interfaces
         Task<ProjectEntity> GetProjectById(int projectId);
 
         Task<bool> ChangeStatusToProject(ProjectEntity projectEntity, Status newStatus);
+
+        Task<bool> LogTimeProject(ProjectEntity projectEntity, long minutes);
     }
 }

@@ -64,5 +64,12 @@ namespace Company.WebAPI.Controllers
             var result = await _projectsService.ChangeStatusToProject(model.ProjectId, model.NewStatus, model.EmailEmployee);
             return Ok(result);
         }
+
+        [HttpPut("logTime")]
+        public async Task<IActionResult> LogTimeById([FromBody] LogTimeDTO model)
+        {
+            var result = await _projectsService.LogTimeById(model);
+            return Ok(result);
+        }
     }
 }

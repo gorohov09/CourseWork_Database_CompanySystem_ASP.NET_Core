@@ -7,6 +7,10 @@
 <h1>@Html.DisplayNameFor(model => model.Title): @Html.DisplayFor(model => model.Title)</h1>
 <a asp-action="ChangeStatus" asp-route-projectId="@Model.Id"><h2>@Html.DisplayNameFor(model => model.Status): @Html.DisplayFor(model => model.Status)</h2></a>
 
+@*Время, потраченное на проект*@
+<h2>@Html.DisplayNameFor(model => model.Time): @Html.DisplayFor(model => model.Time.Days) @Html.DisplayNameFor(model => model.Time.Days) @Html.DisplayFor(model => model.Time.Hours) @Html.DisplayNameFor(model => model.Time.Hours) @Html.DisplayFor(model => model.Time.Minutes) @Html.DisplayNameFor(model => model.Time.Minutes)</h2>
+<a asp-action="LogTime" asp-route-projectId="@Model.Id"><h2>Залогировать время</h2></a>
+
 
 @if (Model.EmployeeMaster == null)
 {

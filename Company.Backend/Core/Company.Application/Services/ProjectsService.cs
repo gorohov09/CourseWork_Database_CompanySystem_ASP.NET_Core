@@ -1,4 +1,5 @@
-﻿using Company.Application.Interfaces;
+﻿using Company.Application.DTO;
+using Company.Application.Interfaces;
 using Company.Application.ViewModel;
 using Company.DAL.Interfaces;
 using Company.Domain.Entities;
@@ -13,12 +14,15 @@ namespace Company.Application.Services
 
         private readonly IHistoryActionService _historyActionService;
 
+        private readonly ITimeService _timeService;
+
         public ProjectsService(IProjectRepository projectRepository, IEmployeesRepository employeesRepository,
-            IHistoryActionService historyActionService)
+            IHistoryActionService historyActionService, ITimeService timeService)
         {
             _projectRepository = projectRepository;
             _employeesRepository = employeesRepository;
             _historyActionService = historyActionService;
+            _timeService = timeService;
         }
 
         public async Task<bool> AssigneProjectToEmployee(int employeeId, int projectId, bool isMaster = false)
@@ -138,7 +142,8 @@ namespace Company.Application.Services
                 Id = projectEntity.Id,
                 Title = projectEntity.Title,
                 Description = projectEntity.Description,
-                Status = projectEntity.GetStatusFromProject()
+                Status = projectEntity.GetStatusFromProject(),
+                Time = _timeService.ConvertMinutesInTime(projectEntity.Minutes)
             };
 
             var employeeEntity = await _employeesRepository.GetMasterEmployeeByProject(projectEntity.Id);
@@ -177,6 +182,39 @@ namespace Company.Application.Services
             projectDetailsVm.HistoryActions = await _historyActionService.GetHistoryActionProject(projectId);
 
             return projectDetailsVm;
+        }
+
+        public async Task<bool> LogTimeById(LogTimeDTO logTimeDTO)
+        {
+            if (logTimeDTO == null)
+                return false;
+
+            var projectEntity = await _projectRepository.GetProjectById(logTimeDTO.ProjectId);
+
+            var employeeEntity = await _employeesRepository.GetEmployeeByEmail(logTimeDTO.Email);
+
+            if (projectEntity == null || employeeEntity == null)
+                return false;
+
+            if (!_timeService.CheckFormatTimeString(logTimeDTO.TimeLine))
+                return false;
+
+            var minutes = _timeService.ConvertTimeInMinutes(logTimeDTO.TimeLine);
+
+            var result = await _projectRepository.LogTimeProject(projectEntity, minutes);
+
+            if (result)
+            {
+                var resultLog = await _historyActionService.SaveHistoryActionProject(
+                    string.Format($"Сотрудник {employeeEntity.LastName} " +
+                    $"{employeeEntity.FirstName} залогировал {minutes} минут"), logTimeDTO.ProjectId);
+
+                if (resultLog)
+                    return true;
+            }
+
+            return false;
+
         }
 
         public async Task<bool> UnassigneProjectToEmployee(int employeeId, int projectId)

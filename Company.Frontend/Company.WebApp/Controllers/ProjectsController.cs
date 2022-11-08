@@ -89,8 +89,6 @@ namespace Company.WebApp.Controllers
         [HttpGet]
         public async Task<IActionResult> ChangeStatus(int projectId)
         {
-            var projectDto = await _projectsClient.GetProjectById(projectId);
-
             var model = new ChangeStatusViewModel
             {
                 ProjectId = projectId,
@@ -108,6 +106,32 @@ namespace Company.WebApp.Controllers
             if (!result)
             {
                 ModelState.AddModelError("", "Не удалось сохранить данные! Возможно неверно написан статус задачи");
+                return View(model);
+            }
+
+            return RedirectToAction("Details", new { projectId = model.ProjectId });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> LogTime(int projectId)
+        {
+            var model = new LogTimeViewModel
+            {
+                ProjectId = projectId,
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> LogTime(LogTimeViewModel model)
+        {
+            var email = User.Identity!.Name;
+            var result = await _projectsClient.LogTime(model.ProjectId, model.LogTime, email);
+
+            if (!result)
+            {
+                ModelState.AddModelError("", "Не удалось сохранить данные! Проверьте корректность ввода времени");
                 return View(model);
             }
 
