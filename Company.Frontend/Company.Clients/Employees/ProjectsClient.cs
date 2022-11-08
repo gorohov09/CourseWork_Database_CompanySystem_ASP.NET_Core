@@ -60,6 +60,16 @@ namespace Company.Clients.Employees
                 return await GetAsync<IEnumerable<ProjectDTO>>($"email/{email}");
         }
 
+        public async Task<bool> LogTime(LogTimeDTO logTime)
+        {
+            var response = await PostAsync("logTime", logTime);
+            var success = await response!.EnsureSuccessStatusCode()
+                .Content
+                .ReadFromJsonAsync<bool>();
+
+            return success;
+        }
+
         public async Task<bool> UnassigneProjectToEmployee(int projectId, int employeeId)
         {
             var dtoModel = new UnassigneProjectToEmployeeDTO

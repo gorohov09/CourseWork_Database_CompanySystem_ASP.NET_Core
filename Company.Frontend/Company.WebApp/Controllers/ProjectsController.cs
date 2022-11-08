@@ -89,8 +89,6 @@ namespace Company.WebApp.Controllers
         [HttpGet]
         public async Task<IActionResult> ChangeStatus(int projectId)
         {
-            var projectDto = await _projectsClient.GetProjectById(projectId);
-
             var model = new ChangeStatusViewModel
             {
                 ProjectId = projectId,
@@ -101,6 +99,32 @@ namespace Company.WebApp.Controllers
 
         [HttpPost]
         public async Task<IActionResult> ChangeStatus(ChangeStatusViewModel model)
+        {
+            var email = User.Identity!.Name;
+            var result = await _projectsClient.ChangeStatusProject(model.ProjectId, model.NewStatus, email);
+
+            if (!result)
+            {
+                ModelState.AddModelError("", "Не удалось сохранить данные! Возможно неверно написан статус задачи");
+                return View(model);
+            }
+
+            return RedirectToAction("Details", new { projectId = model.ProjectId });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> LogTime(int projectId)
+        {
+            var model = new TimeProjectViewModel
+            {
+                ProjectId = projectId,
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> LogTimes(ChangeStatusViewModel model)
         {
             var email = User.Identity!.Name;
             var result = await _projectsClient.ChangeStatusProject(model.ProjectId, model.NewStatus, email);
