@@ -196,8 +196,10 @@ namespace Company.Application.Services
             if (projectEntity == null || employeeEntity == null)
                 return false;
 
-            var timeProjectVm = new TimeProjectVm { Days = logTimeDTO.Days, Hours = logTimeDTO.Hours, Minutes = logTimeDTO.Minutes };
-            var minutes = _timeService.ConvertTimeInMinutes(timeProjectVm);
+            if (!_timeService.CheckFormatTimeString(logTimeDTO.TimeLine))
+                return false;
+
+            var minutes = _timeService.ConvertTimeInMinutes(logTimeDTO.TimeLine);
 
             var result = await _projectRepository.LogTimeProject(projectEntity, minutes);
 

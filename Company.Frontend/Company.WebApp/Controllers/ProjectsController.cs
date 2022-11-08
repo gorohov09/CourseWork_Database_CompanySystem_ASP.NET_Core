@@ -115,7 +115,7 @@ namespace Company.WebApp.Controllers
         [HttpGet]
         public async Task<IActionResult> LogTime(int projectId)
         {
-            var model = new TimeProjectViewModel
+            var model = new LogTimeViewModel
             {
                 ProjectId = projectId,
             };
@@ -124,14 +124,14 @@ namespace Company.WebApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> LogTimes(ChangeStatusViewModel model)
+        public async Task<IActionResult> LogTime(LogTimeViewModel model)
         {
             var email = User.Identity!.Name;
-            var result = await _projectsClient.ChangeStatusProject(model.ProjectId, model.NewStatus, email);
+            var result = await _projectsClient.LogTime(model.ProjectId, model.LogTime, email);
 
             if (!result)
             {
-                ModelState.AddModelError("", "Не удалось сохранить данные! Возможно неверно написан статус задачи");
+                ModelState.AddModelError("", "Не удалось сохранить данные! Проверьте корректность ввода времени");
                 return View(model);
             }
 

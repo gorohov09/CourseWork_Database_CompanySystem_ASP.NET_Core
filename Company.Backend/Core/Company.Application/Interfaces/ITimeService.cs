@@ -4,8 +4,10 @@ namespace Company.Application.Interfaces
 {
     public interface ITimeService
     {
-        long ConvertTimeInMinutes(TimeProjectVm time);
+        long ConvertTimeInMinutes(string time);
 
         TimeProjectVm ConvertMinutesInTime(long minutes);
+
+        bool CheckFormatTimeString(string time);
     }
 }
