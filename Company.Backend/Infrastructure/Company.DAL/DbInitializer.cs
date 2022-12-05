@@ -1,5 +1,6 @@
 ﻿using Company.DAL.Context;
 using Company.DAL.Interfaces;
+using Company.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
@@ -26,9 +27,11 @@ namespace Company.DAL
 
             await _context.Database.MigrateAsync(cancel).ConfigureAwait(false); //Запускает процесс создания БД и перевод ее в последнее состояние
 
-            await InitializerEmployeesAsync(cancel).ConfigureAwait(false);
+            //await InitializerEmployeesAsync(cancel).ConfigureAwait(false);
 
             await InitializeProjectsAsync(cancel).ConfigureAwait(false);
+
+            await InitializeRoleAndAdmin(cancel).ConfigureAwait(false);
 
             _logger.LogInformation("Инициализация БД выполнена успешно");
         }
@@ -78,6 +81,50 @@ namespace Company.DAL
             await using (await _context.Database.BeginTransactionAsync())
             {
                 await _context.AddRangeAsync(TestData.ProjectsEntities, cancel);
+
+                await _context.SaveChangesAsync(cancel);
+
+                await _context.Database.CommitTransactionAsync(cancel);
+            }
+
+            _logger.LogInformation("Инициализация проектов выполнена успешно");
+        }
+
+        private async Task InitializeRoleAndAdmin(CancellationToken cancel)
+        {
+            if (await _context.Roles.AnyAsync())
+            {
+                _logger.LogInformation("Инициализация ролей не требуется");
+                return;
+            }
+
+            await using (await _context.Database.BeginTransactionAsync())
+            {
+                string adminRoleName = "admin";
+                string userRoleName = "user";
+
+                string adminEmail = "admin@mail.ru";
+                string adminPassword = "123456";
+
+                // добавляем роли
+                RoleEntity adminRole = new RoleEntity { Name = adminRoleName };
+                RoleEntity userRole = new RoleEntity { Name = userRoleName };
+                EmployeeEntity adminUser = new EmployeeEntity
+                {
+                    LastName = "Администратор",
+                    FirstName = "Администратор",
+                    Patronymic = "Администратор",
+                    Birthday = new DateTime(2002, 7, 9),
+                    PhoneNumber = 89961880283,
+                    Salary = 90000,
+                    Email = adminEmail,
+                    Password = adminPassword,
+                    Role = adminRole,
+                };
+
+                await _context.AddAsync(adminRole);
+                await _context.AddAsync(userRole);
+                await _context.AddAsync(adminUser);
 
                 await _context.SaveChangesAsync(cancel);
 

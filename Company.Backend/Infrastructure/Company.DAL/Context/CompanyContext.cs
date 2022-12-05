@@ -35,32 +35,32 @@ namespace Company.DAL.Context
                 .WithMany(ep => ep.ProjectEmployees)
                 .HasForeignKey(ep => ep.ProjectId);
 
-            string adminRoleName = "admin";
-            string userRoleName = "user";
+            //string adminRoleName = "admin";
+            //string userRoleName = "user";
 
-            string adminEmail = "admin@mail.ru";
-            string adminPassword = "123456";
+            //string adminEmail = "admin@mail.ru";
+            //string adminPassword = "123456";
 
-            // добавляем роли
-            RoleEntity adminRole = new RoleEntity {Id = 1, Name = adminRoleName };
-            RoleEntity userRole = new RoleEntity {Id = 2, Name = userRoleName };
-            EmployeeEntity adminUser = new EmployeeEntity
-            {
-                LastName = "Администратор",
-                FirstName = "Администратор",
-                Patronymic = "Администратор",
-                Birthday = new DateTime(2002, 7, 9),
-                PhoneNumber = 89961880283,
-                Salary = 90000,
-                Email = adminEmail,
-                Password = adminPassword,
-                RoleId = adminRole.Id,
-                Id = 20
-            };
+            //// добавляем роли
+            //RoleEntity adminRole = new RoleEntity {Id = 1, Name = adminRoleName };
+            //RoleEntity userRole = new RoleEntity {Id = 2, Name = userRoleName };
+            //EmployeeEntity adminUser = new EmployeeEntity
+            //{
+            //    LastName = "Администратор",
+            //    FirstName = "Администратор",
+            //    Patronymic = "Администратор",
+            //    Birthday = new DateTime(2002, 7, 9),
+            //    PhoneNumber = 89961880283,
+            //    Salary = 90000,
+            //    Email = adminEmail,
+            //    Password = adminPassword,
+            //    RoleId = adminRole.Id,
+            //    Id = 20
+            //};
 
-            modelBuilder.Entity<RoleEntity>().HasData(new RoleEntity[] { adminRole, userRole });
-            modelBuilder.Entity<EmployeeEntity>().HasData(new EmployeeEntity[] { adminUser });
-            base.OnModelCreating(modelBuilder);
+            //modelBuilder.Entity<RoleEntity>().HasData(new RoleEntity[] { adminRole, userRole });
+            //modelBuilder.Entity<EmployeeEntity>().HasData(new EmployeeEntity[] { adminUser });
+            //base.OnModelCreating(modelBuilder);
         }
     }
 }
