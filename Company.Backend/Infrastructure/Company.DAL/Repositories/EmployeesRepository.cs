@@ -31,20 +31,23 @@ namespace Company.DAL.Repositories
 
         public async Task<int> GetCountEmployeesFromProject(int projectId)
         {
-            var countEmployees = await _context.EmployeesProjects.Where(ep => ep.ProjectId == projectId)
+            var countEmployees = await _context.EmployeesProjects
+                .Where(ep => ep.ProjectId == projectId)
                 .CountAsync();
             return countEmployees;
         }
 
         public async Task<EmployeeEntity> GetEmployeeByEmail(string email)
         {
-            var employeeEntity = await _context.Employees.FirstOrDefaultAsync(ep => ep.Email == email);
+            var employeeEntity = await _context.Employees
+                .FirstOrDefaultAsync(ep => ep.Email == email);
             return employeeEntity;
         }
 
         public async Task<EmployeeEntity?> GetEmployeeById(int employeeId)
         {
-            var employeeEntity = await _context.Employees.FirstOrDefaultAsync(p => p.Id == employeeId);
+            var employeeEntity = await _context.Employees
+                .FirstOrDefaultAsync(p => p.Id == employeeId);
             return employeeEntity;
         }
             
@@ -60,8 +63,8 @@ namespace Company.DAL.Repositories
 
         public async Task<EmployeeEntity> GetMasterEmployeeByProject(int projectId)
         {
-            var employeeByProject = await _context.EmployeesProjects.Where(ep => ep.ProjectId == projectId
-            && ep.IsMaster == true)
+            var employeeByProject = await _context.EmployeesProjects
+                .Where(ep => ep.ProjectId == projectId && ep.IsMaster == true)
                 .Select(ep => ep.Employee)
                 .FirstOrDefaultAsync();
 

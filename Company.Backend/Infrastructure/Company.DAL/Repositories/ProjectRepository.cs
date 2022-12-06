@@ -16,7 +16,8 @@ namespace Company.DAL.Repositories
 
         public async Task<IEnumerable<ProjectEntity>> GetProjectByEmployee(int employeeId)
         {
-            var projectsByEmployee = await _context.EmployeesProjects.Where(ep => ep.EmployeeId == employeeId)
+            var projectsByEmployee = await _context.EmployeesProjects
+                .Where(ep => ep.EmployeeId == employeeId)
                 .Select(ep => ep.Project)
                 .ToListAsync();
 
@@ -25,7 +26,8 @@ namespace Company.DAL.Repositories
 
         public async Task<int> GetCountProjectsFromEmployee(int employeeId)
         {
-            var countProjects = await _context.EmployeesProjects.Where(ep => ep.EmployeeId == employeeId)
+            var countProjects = await _context.EmployeesProjects
+                .Where(ep => ep.EmployeeId == employeeId)
                 .CountAsync();
 
             return countProjects;
@@ -53,7 +55,8 @@ namespace Company.DAL.Repositories
 
         public async Task<ProjectEntity> GetProjectById(int projectId)
         {
-            var projectEntity = await _context.Projects.FirstOrDefaultAsync(p => p.Id == projectId);
+            var projectEntity = await _context.Projects
+                .FirstOrDefaultAsync(p => p.Id == projectId);
             return projectEntity;
         }
 

@@ -16,7 +16,7 @@ namespace Company.DAL.Repositories
 
         public async Task<EmployeeEntity> Login(string password, string email)
         {
-            EmployeeEntity employee = await _context.Employees
+            var employee = await _context.Employees
                     .Include(u => u.Role)
                     .FirstOrDefaultAsync(u => u.Email == email && u.Password == password);
 

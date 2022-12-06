@@ -16,7 +16,8 @@ namespace Company.DAL.Repositories
 
         public async Task<RoleEntity> GetRoleByName(string roleName)
         {
-            var roleEntity = await _context.Roles.FirstOrDefaultAsync(r => r.Name == roleName);
+            var roleEntity = await _context.Roles
+                .FirstOrDefaultAsync(r => r.Name == roleName);
             return roleEntity;
         }
     }
