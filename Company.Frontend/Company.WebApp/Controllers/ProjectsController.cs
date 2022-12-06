@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Company.Application.DTO;
 using Company.Clients.Interfaces;
 using Company.WebApp.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -136,6 +137,36 @@ namespace Company.WebApp.Controllers
             }
 
             return RedirectToAction("Details", new { projectId = model.ProjectId });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> CreateProject()
+        {
+            var createProjVm = new CreateProjectViewModel();
+            return View(createProjVm);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateProject(CreateProjectViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return View(model);
+
+            var dtoProject = new ProjectCreateDTO
+            {
+                Title = model.Title,
+                Description = model.Description,
+            };
+
+            var result = await _projectsClient.CreateProject(dtoProject);
+
+            if (!result)
+            {
+                ModelState.AddModelError("", "Не удалось сохранить данные!");
+                return View(model);
+            }
+
+            return RedirectToAction("Index");
         }
     }
 }

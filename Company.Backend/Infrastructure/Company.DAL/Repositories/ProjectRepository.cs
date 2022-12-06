@@ -84,5 +84,26 @@ namespace Company.DAL.Repositories
             projectEntity.Minutes += minutes;
             return (await _context.SaveChangesAsync() > 0);
         }
+
+        /// <summary>
+        /// Возвращает Id проекта
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="description"></param>
+        /// <returns></returns>
+        public async Task<int> CreateProject(string title, string description)
+        {
+            var projectEntity = new ProjectEntity
+            {
+                Title = title,
+                Description = description,
+                Minutes = 0,
+                Status = Status.OPEN
+            };
+
+            await _context.AddAsync(projectEntity);
+            await _context.SaveChangesAsync();
+            return projectEntity.Id;
+        }
     }
 }

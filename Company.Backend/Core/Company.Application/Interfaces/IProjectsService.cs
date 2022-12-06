@@ -18,5 +18,7 @@ namespace Company.Application.Interfaces
         Task<IEnumerable<ProjectVm>> GetProjectByEmail(string email);
 
         Task<bool> LogTimeById(LogTimeDTO logTimeDTO);
+
+        Task<bool> CreateProject(string title, string description);
     }
 }
