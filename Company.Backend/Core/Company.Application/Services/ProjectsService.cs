@@ -80,6 +80,22 @@ namespace Company.Application.Services
             return false;
         }
 
+        public async Task<bool> CreateProject(string title, string description)
+        {
+            var result = await _projectRepository.CreateProject(title, description);
+
+            if (result > 0)
+            {
+                var resultLog = await _historyActionService.SaveHistoryActionProject(
+                    $"Проект создан", result);
+
+                if (resultLog)
+                    return true;
+            }
+
+            return false;
+        }
+
         public async Task<IEnumerable<ProjectVm>> GetAllProjectsVm()
         {
             var projectsEntity = await _projectRepository.GetAllProjects();

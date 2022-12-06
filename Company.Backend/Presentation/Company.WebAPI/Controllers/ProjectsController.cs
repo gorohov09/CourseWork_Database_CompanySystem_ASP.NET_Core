@@ -71,5 +71,13 @@ namespace Company.WebAPI.Controllers
             var result = await _projectsService.LogTimeById(model);
             return Ok(result);
         }
+
+        [HttpPost("create")]
+        public async Task<IActionResult> ProjectCreate([FromBody] ProjectCreateDTO model)
+        {
+            var result = await _projectsService.CreateProject(model.Title, model.Description);
+            return Ok(result);
+        }
+
     }
 }
