@@ -15,5 +15,7 @@ namespace Company.Clients.Interfaces
         Task<bool> ChangeStatusProject(int projectId, string newStatus, string emailEmployee);
 
         Task<bool> LogTime(int projectId, string timeLine, string email);
+
+        Task<bool> CreateProject(ProjectCreateDTO projectDTO);
     }
 }

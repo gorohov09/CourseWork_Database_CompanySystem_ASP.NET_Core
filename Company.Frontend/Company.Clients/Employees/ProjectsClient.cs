@@ -46,6 +46,14 @@ namespace Company.Clients.Employees
             return success;
         }
 
+        public async Task<bool> CreateProject(ProjectCreateDTO projectDTO)
+        {
+            var result = await PostAsync("create", projectDTO);
+            return await result!.EnsureSuccessStatusCode()
+                .Content
+                .ReadFromJsonAsync<bool>();
+        }
+
         public async Task<ProjectDetailsDTO> GetProjectById(int projectId)
         {
             var projectDetailsDTO = await GetAsync<ProjectDetailsDTO>($"details/{projectId}");

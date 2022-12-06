@@ -56,6 +56,11 @@ else
 }
     </tbody>
 </table>
+
+@if (User.IsInRole("admin"))
+{
+    <a class="btn btn-default" asp-action="CreateProject">Создать</a>
+}
 }
 
 
