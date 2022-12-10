@@ -17,5 +17,7 @@ namespace Company.Clients.Interfaces
         Task<bool> LogTime(int projectId, string timeLine, string email);
 
         Task<bool> CreateProject(ProjectCreateDTO projectDTO);
+
+        Task<bool> DeleteProject(int projectId);
     }
 }

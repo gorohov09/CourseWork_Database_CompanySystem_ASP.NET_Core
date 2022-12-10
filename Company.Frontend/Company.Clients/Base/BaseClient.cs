@@ -38,5 +38,12 @@ namespace Company.Clients.Base
             var response = await HttpClient.PutAsJsonAsync(address, value, cancel).ConfigureAwait(false);
             return response.EnsureSuccessStatusCode();
         }
+
+        protected async Task<HttpResponseMessage?> DeleteAsync(string url, CancellationToken cancel = default)
+        {
+            var address = $"{Address}/{url}";
+            var response = await HttpClient.DeleteAsync(address, cancel).ConfigureAwait(false);
+            return response;
+        }
     }
 }

@@ -79,5 +79,12 @@ namespace Company.WebAPI.Controllers
             return Ok(result);
         }
 
+        [HttpDelete("delete/{projectId}")]
+        public async Task<IActionResult> ProjectDelete(int projectId)
+        {
+            var result = await _projectsService.DeleteProject(projectId);
+            return Ok(result);
+        }
+
     }
 }

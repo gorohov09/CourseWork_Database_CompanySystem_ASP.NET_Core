@@ -54,6 +54,12 @@ namespace Company.Clients.Employees
                 .ReadFromJsonAsync<bool>();
         }
 
+        public async Task<bool> DeleteProject(int projectId)
+        {
+            var response = await DeleteAsync($"delete/{projectId}");
+            return response.IsSuccessStatusCode;
+        }
+
         public async Task<ProjectDetailsDTO> GetProjectById(int projectId)
         {
             var projectDetailsDTO = await GetAsync<ProjectDetailsDTO>($"details/{projectId}");

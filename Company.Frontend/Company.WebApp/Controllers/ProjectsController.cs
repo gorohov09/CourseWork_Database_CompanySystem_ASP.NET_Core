@@ -168,5 +168,15 @@ namespace Company.WebApp.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteConfirmed(int projectId)
+        {
+            var result = await _projectsClient.DeleteProject(projectId);
+            if (!result)
+                return NotFound();
+
+            return RedirectToAction("Index");
+        }
     }
 }

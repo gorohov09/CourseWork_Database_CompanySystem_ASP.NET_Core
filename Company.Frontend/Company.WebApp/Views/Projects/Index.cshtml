@@ -52,6 +52,14 @@ else
             <td>
                 @Html.DisplayFor(modelItem => item.CountEmployees)
             </td>
+            <td>
+                @if (User.IsInRole("admin"))
+                {
+                    <form asp-controller="Projects" asp-action="DeleteConfirmed" asp-route-projectId="@item.Id">
+                        <input type="submit" value="Удалить" class="btn btn-sm btn-danger" />
+                    </form>
+                }
+            </td>
         </tr>
 }
     </tbody>

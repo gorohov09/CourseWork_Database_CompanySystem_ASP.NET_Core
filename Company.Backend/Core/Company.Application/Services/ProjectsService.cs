@@ -96,6 +96,17 @@ namespace Company.Application.Services
             return false;
         }
 
+        public async Task<bool> DeleteProject(int projectId)
+        {
+            var projectEntity = await _projectRepository.GetProjectById(projectId);
+
+            if (projectEntity == null)
+                return false;
+
+            var result = await _projectRepository.DeleteProject(projectEntity);
+            return result;
+        }
+
         public async Task<IEnumerable<ProjectVm>> GetAllProjectsVm()
         {
             var projectsEntity = await _projectRepository.GetAllProjects();
