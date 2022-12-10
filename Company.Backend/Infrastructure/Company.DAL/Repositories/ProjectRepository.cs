@@ -105,5 +105,11 @@ namespace Company.DAL.Repositories
             await _context.SaveChangesAsync();
             return projectEntity.Id;
         }
+
+        public async Task<bool> DeleteProject(ProjectEntity projectEntity)
+        {
+            _context.Remove(projectEntity);
+            return (await _context.SaveChangesAsync() > 0);
+        }
     }
 }

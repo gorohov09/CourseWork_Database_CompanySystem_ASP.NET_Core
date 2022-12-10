@@ -20,5 +20,7 @@ namespace Company.Application.Interfaces
         Task<bool> LogTimeById(LogTimeDTO logTimeDTO);
 
         Task<bool> CreateProject(string title, string description);
+
+        Task<bool> DeleteProject(int projectId);
     }
 }
