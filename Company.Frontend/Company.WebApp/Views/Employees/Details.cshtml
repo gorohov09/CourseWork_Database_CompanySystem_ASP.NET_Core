@@ -7,13 +7,19 @@
 <div>
     <h1>@Html.DisplayFor(model => model.LastName) @Html.DisplayFor(model => model.FirstName)</h1>
     <h1>@Html.DisplayFor(model => model.Patronymic)</h1>
-    <h2>Участие в проектах</h2>
+
+    <h2>@Html.DisplayNameFor(model => model.PhoneNumber):</h2> @Html.DisplayFor(model => model.PhoneNumber)
+    <h2>@Html.DisplayNameFor(model => model.Email):</h2> @Html.DisplayFor(model => model.Email)
+    
     @if (Model.Projects.Count == 0)
     {
         <h3>На данного сотрудника никаких проектов не назначено</h3>
     }
     else
     {
+    @if (User.IsInRole("admin"))
+    {
+        <h2>Участие в проектах</h2>
         <table class="table">
     <thead>
         <tr>
@@ -52,12 +58,12 @@
     </tbody>
 </table>
     }
-    <hr />
+    
+    }
+    
     @if (User.IsInRole("admin"))
     {
         <h2>@Html.DisplayNameFor(model => model.Birthday):</h2> @Html.DisplayFor(model => model.Birthday)
-        <h2>@Html.DisplayNameFor(model => model.PhoneNumber):</h2> @Html.DisplayFor(model => model.PhoneNumber)
-        <h2>@Html.DisplayNameFor(model => model.Email):</h2> @Html.DisplayFor(model => model.Email)
         <h2>@Html.DisplayNameFor(model => model.Salary):</h2> @Html.DisplayFor(model => model.Salary)
         <h2>@Html.DisplayNameFor(model => model.Age):</h2> @Html.DisplayFor(model => model.Age)
     }
